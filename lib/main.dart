@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.dark(),
       themeMode: ThemeMode.light,
       title: 'Emotive Chat',
-      home: HomeScreen(),
+      home: /*TestScreen(),*/ HomeScreen(),
     );
   }
 }
