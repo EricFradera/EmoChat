@@ -7,7 +7,7 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Test screen")),
-      body: MyStatefulWidget(),
+      body: ExpressiveSelector(),
     );
   }
 }
@@ -24,14 +24,14 @@ List<Item> generateItems(int numberOfItems) {
   });
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class ExpressiveSelector extends StatefulWidget {
+  const ExpressiveSelector({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<ExpressiveSelector> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<ExpressiveSelector> {
   final List<Item> _data = generateItems(8);
 
   @override
@@ -76,7 +76,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             child: Text("Type A", textAlign: TextAlign.center),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Color.fromRGBO(89, 122, 66, 1),
                               borderRadius: BorderRadius.circular(20))),
                       Container(
                           child: const Padding(
@@ -84,7 +84,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             child: Text("Type A", textAlign: TextAlign.center),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Color.fromRGBO(89, 122, 66, 1),
                               borderRadius: BorderRadius.circular(20))),
                       Container(
                           child: const Padding(
@@ -92,7 +92,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             child: Text("Type A", textAlign: TextAlign.center),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Color.fromRGBO(89, 122, 66, 1),
                               borderRadius: BorderRadius.circular(20))),
                       Container(
                           child: const Padding(
@@ -100,7 +100,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             child: Text("Type A", textAlign: TextAlign.center),
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Color.fromRGBO(89, 122, 66, 1),
                               borderRadius: BorderRadius.circular(20))),
                     ],
                   ),
@@ -121,7 +121,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -130,7 +130,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -139,7 +139,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -148,7 +148,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                       ],
                     ),
@@ -170,7 +170,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -179,7 +179,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -188,7 +188,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                         Container(
                             child: const Padding(
@@ -197,7 +197,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                   Text("Type A", textAlign: TextAlign.center),
                             ),
                             decoration: BoxDecoration(
-                                color: Colors.amber,
+                                color: Color.fromRGBO(89, 122, 66, 1),
                                 borderRadius: BorderRadius.circular(20))),
                       ],
                     ),

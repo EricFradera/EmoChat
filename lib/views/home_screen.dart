@@ -1,8 +1,8 @@
 import 'package:chat_app/custom%20widgets/action_button.dart';
-import 'package:chat_app/pages/call_page.dart';
+import 'package:chat_app/pages/howItWorks.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/contact_page.dart';
-import 'package:chat_app/pages/notifications_page.dart';
+import 'package:chat_app/pages/expressionPage.dart';
 import 'package:chat_app/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,17 @@ class HomeScreen extends StatelessWidget {
 
   final pages = const [
     ContactsList(),
-    NotificationPage(),
-    CallPage(),
+    ExpressionPage(),
+    HowItWorks(),
     ContactPage(),
   ];
 
-  final title = const ["Messages", "Notifications", "Calls", "Contacts"];
+  final title = const [
+    "Messages",
+    "Emotive Selector",
+    "How it works",
+    "Contacts"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +106,8 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                   onTap: HandleItemSelected,
                 ),
                 _NavigationBarItem(
-                  label: "Notifications",
-                  icon: CupertinoIcons.bell_fill,
+                  label: "Emotive Selector",
+                  icon: CupertinoIcons.heart,
                   index: 1,
                   isSelected: (selectedIndex == 1),
                   onTap: HandleItemSelected,
@@ -113,19 +118,19 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                       Action_Button(color: AppColors.accent, icon: Icons.add),
                 ),*/
                 _NavigationBarItem(
-                  label: "Calls",
-                  icon: CupertinoIcons.phone_fill,
+                  label: "How it works",
+                  icon: CupertinoIcons.question,
                   index: 2,
                   isSelected: (selectedIndex == 2),
                   onTap: HandleItemSelected,
                 ),
-                _NavigationBarItem(
+                /*_NavigationBarItem(
                   label: "Contacts",
                   icon: CupertinoIcons.person_2_fill,
                   index: 3,
                   isSelected: (selectedIndex == 3),
                   onTap: HandleItemSelected,
-                ),
+                ),*/
               ],
             ),
           ),
