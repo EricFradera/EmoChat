@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "606965338739",
+    "project_id": "emotivechat-ee8b4",
+    "storage_bucket": "emotivechat-ee8b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606965338739:android:a493ddbf41dfb4433e5006",
+        "android_client_info": {
+          "package_name": "com.emotiv.emotivchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606965338739-ogsuh54kj5ker9td8s1gmr9fukua955v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emotiv.emotivchat",
+            "certificate_hash": "83790085f474659bde479368692430cb21ed6212"
+          }
+        },
+        {
+          "client_id": "606965338739-efai3agq217jqseot1ebi896rk5ms828.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMxBn10jfSXM-Jz7yxTmaRTGLxEQBKa-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606965338739-efai3agq217jqseot1ebi896rk5ms828.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/avatar.dart';
 import 'package:flutter/material.dart';
