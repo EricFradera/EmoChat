@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:chat_app/models/message_data.dart';
 import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/chat_screen.dart';
@@ -19,7 +17,10 @@ class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("users").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .where('uid', isNotEqualTo: currentUser)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -28,22 +29,18 @@ class ContactsList extends StatelessWidget {
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
-              return Center(
-                child: Text(document['email']),
-              );
+              return _delegate(
+                  context, document["userName"], document["photoUrl"]);
             }).toList(),
           );
         });
   }
 }
 
-Widget _delegate(BuildContext context, int index) {
+Widget _delegate(BuildContext context, String name, String url) {
   return _MessageCard(
       messageData: MessageData(
-          senderName: "Paul Atreides",
-          message: "We need water",
-          profilePicture:
-              "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"));
+          senderName: name, message: "Lorem ipsum", profilePicture: url));
 }
 
 class _MessageCard extends StatelessWidget {

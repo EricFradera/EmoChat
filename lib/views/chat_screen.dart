@@ -46,10 +46,9 @@ class _AppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Profile.small(
+        Profile.small(
             // remove conts when dynamically add picture
-            url:
-                "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"),
+            url: messageData.profilePicture),
         const SizedBox(
           width: 16,
         ),
