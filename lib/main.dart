@@ -13,7 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  const bool USE_EMULATOR = true; //firebase emulators:start
+  const bool USE_EMULATOR = false; //firebase emulators:start
 
   if (USE_EMULATOR) {
     // [Firestore | localhost:8080]
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.dark(),
       themeMode: ThemeMode.light,
       title: 'Emotive Chat',
-      home: /*TestScreen(),*/ LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }
