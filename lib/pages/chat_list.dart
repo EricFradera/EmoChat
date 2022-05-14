@@ -1,35 +1,49 @@
+import 'dart:html';
+
 import 'package:chat_app/models/message_data.dart';
 import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/chat_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../custom widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  const ContactsList({Key? key}) : super(key: key);
+  ContactsList({Key? key}) : super(key: key);
+
+  final currentUser = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            _delegate,
-          ))
-        ],
-      ),
-    );
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("users").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((document) {
+              return Center(
+                child: Text(document['email']),
+              );
+            }).toList(),
+          );
+        });
   }
+}
 
-  Widget _delegate(BuildContext context, int index) {
-    return _MessageCard(
-        messageData: MessageData(
-            senderName: "Paul Atreides",
-            message: "We need water",
-            profilePicture:
-                "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"));
-  }
+Widget _delegate(BuildContext context, int index) {
+  return _MessageCard(
+      messageData: MessageData(
+          senderName: "Paul Atreides",
+          message: "We need water",
+          profilePicture:
+              "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"));
 }
 
 class _MessageCard extends StatelessWidget {
@@ -86,3 +100,12 @@ class _MessageCard extends StatelessWidget {
     );
   }
 }
+
+Stream<int> generateNumbers = (() async* {
+  await Future<void>.delayed(Duration(seconds: 2));
+
+  for (int i = 1; i <= 5; i++) {
+    await Future<void>.delayed(Duration(seconds: 1));
+    yield i;
+  }
+})();

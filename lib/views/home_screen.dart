@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   final ValueNotifier<int> pageIndex = ValueNotifier(0);
   final ValueNotifier<String> pagetitle = ValueNotifier("Message");
 
-  final pages = const [
+  final pages = [
     ContactsList(),
     ExpressionPage(),
     HowItWorks(),

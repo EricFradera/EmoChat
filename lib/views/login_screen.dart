@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    print(userCredential.user!.email.toString());
+    //print(userCredential.user!.email.toString());
 
     UserController userController = UserController();
 
