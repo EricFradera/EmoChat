@@ -29,18 +29,22 @@ class ContactsList extends StatelessWidget {
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
-              return _delegate(
-                  context, document["userName"], document["photoUrl"]);
+              return _delegate(context, document["userName"],
+                  document["photoUrl"], document["uid"]);
             }).toList(),
           );
         });
   }
 }
 
-Widget _delegate(BuildContext context, String name, String url) {
+Widget _delegate(
+    BuildContext context, String name, String url, String senderUid) {
   return _MessageCard(
       messageData: MessageData(
-          senderName: name, message: "Lorem ipsum", profilePicture: url));
+          senderName: name,
+          message: "Lorem ipsum",
+          profilePicture: url,
+          senderUid: senderUid));
 }
 
 class _MessageCard extends StatelessWidget {
@@ -97,12 +101,3 @@ class _MessageCard extends StatelessWidget {
     );
   }
 }
-
-Stream<int> generateNumbers = (() async* {
-  await Future<void>.delayed(Duration(seconds: 2));
-
-  for (int i = 1; i <= 5; i++) {
-    await Future<void>.delayed(Duration(seconds: 1));
-    yield i;
-  }
-})();

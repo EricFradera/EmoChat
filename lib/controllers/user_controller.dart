@@ -9,7 +9,7 @@ class UserController {
     final query =
         await db.collection("users").where('uid', isEqualTo: user.uid).get();
     if (query.docs.isEmpty) {
-      FirebaseFirestore.instance.collection("users").add(user.toJson());
+      db.collection("users").add(user.toJson());
     }
     return true;
   }
