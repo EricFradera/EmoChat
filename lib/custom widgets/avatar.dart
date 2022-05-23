@@ -13,12 +13,17 @@ class Profile extends StatelessWidget {
 
   final double radius;
   final String url;
+  //final Color color;
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: radius,
-      backgroundImage: CachedNetworkImageProvider(url),
-      backgroundColor: Theme.of(context).cardColor,
+      radius: (radius + (radius * 0.25)),
+      backgroundColor: Colors.green,
+      child: CircleAvatar(
+        radius: radius,
+        backgroundImage: CachedNetworkImageProvider(url),
+        backgroundColor: Theme.of(context).cardColor,
+      ),
     );
   }
 }
