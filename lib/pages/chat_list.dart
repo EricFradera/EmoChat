@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/models/message_data.dart';
 import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/chat_screen.dart';
@@ -5,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 
 import '../custom widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +14,12 @@ import 'package:flutter/material.dart';
 class ContactsList extends StatelessWidget {
   ContactsList({Key? key}) : super(key: key);
 
-  final currentUser = FirebaseAuth.instance.currentUser?.uid;
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("users")
-            .where('uid', isNotEqualTo: currentUser)
+            .where('uid', isNotEqualTo: Get.put(UserController()).myUser.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {

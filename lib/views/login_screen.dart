@@ -4,6 +4,7 @@ import 'package:chat_app/models/user.dart' as localUser;
 import 'package:chat_app/views/import_views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -72,34 +73,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> _handleSignIn(context) async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    //print(userCredential.user!.email.toString());
-
-    UserController userController = UserController();
-
-    localUser.User myUser = localUser.User(
-        uid: userCredential.user!.uid,
-        displayName: userCredential.user!.displayName,
-        email: userCredential.user!.email ?? '',
-        photoUrl: userCredential.user!.photoURL ?? '');
-
-    userController.tryAddUser(myUser);
+    Get.put(UserController()).signInUser();
 
     Route route = MaterialPageRoute(builder: (context) => HomeScreen());
     Navigator.pushReplacement(context, route);

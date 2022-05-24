@@ -1,13 +1,30 @@
+import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/custom%20widgets/avatar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_app/models/user.dart' as localUser;
+import 'package:get/get.dart';
 
 class HowItWorks extends StatelessWidget {
-  const HowItWorks({Key? key}) : super(key: key);
+  HowItWorks({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-          "En esta pagina se explica el funcionamiento basico de la aplicacion. El sistema es sencillo.\n En la pagina principal aparecen los contactos recientes con los que puedes hablar. En el el segundo se puede acceder a la expresividad segun las emociones y modificarlo acorde"),
+    return Center(
+      child: Column(
+        children: [_url_Profile()],
+      ),
     );
+  }
+
+  Widget _url_Profile() {
+    String url = Get.put(UserController()).myUser.photoUrl;
+    if (url == '') {
+      return const Profile.large(
+          url:
+              "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png");
+    } else {
+      return Profile.large(url: url);
+    }
   }
 }

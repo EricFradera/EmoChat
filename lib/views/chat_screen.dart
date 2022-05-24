@@ -1,10 +1,13 @@
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/avatar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/message_data.dart';
+import 'package:get/get.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key, required this.messageData}) : super(key: key);
+  ChatScreen({Key? key, required this.messageData}) : super(key: key);
 
   static Route route(MessageData data) => MaterialPageRoute(
         builder: (context) => ChatScreen(
@@ -16,6 +19,8 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController()).tryGetChat(messageData);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(89, 122, 66, 1),

@@ -1,20 +1,22 @@
 import 'package:chat_app/models/expressionPreferences.dart';
 
-class User {
-  final uid;
-  final displayName;
-  final email;
-  final photoUrl;
-  final mood;
+class EmoUser {
+  String uid = '';
+  String displayName = '';
+  String email = '';
+  String photoUrl = '';
+  String mood = '';
   final List<ExpressionPreferences> expressionPreferences = [];
 
-  User({
-    this.uid,
-    this.displayName,
-    this.email,
-    this.photoUrl,
-    this.mood,
+  EmoUser({
+    required this.uid,
+    required this.displayName,
+    required this.email,
+    required this.photoUrl,
+    required this.mood,
   });
+
+  EmoUser.empty();
 
   Map<String, dynamic> toJson() => {
         'uid': uid,
