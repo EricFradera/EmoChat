@@ -3,29 +3,28 @@ import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/avatar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/models/message_data.dart';
+import 'package:chat_app/models/destination_User.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({Key? key, required this.messageData}) : super(key: key);
+  ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
 
-  static Route route(MessageData data) => MaterialPageRoute(
+  static Route route(DestinationUser data) => MaterialPageRoute(
         builder: (context) => ChatScreen(
-          messageData: data,
+          destinationUser: data,
         ),
       );
 
-  final MessageData messageData;
+  final DestinationUser destinationUser;
 
   @override
   Widget build(BuildContext context) {
-    Get.put(UserController()).tryGetChat(messageData);
-
+    Get.put(UserController()).selectUser(destinationUser);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
         elevation: 0,
-        title: _AppBarTitle(messageData: messageData),
+        title: _AppBarTitle(messageData: destinationUser),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -33,7 +32,7 @@ class ChatScreen extends StatelessWidget {
                 image: AssetImage("lib/assets/white_back.png"),
                 fit: BoxFit.cover)),
         child: Column(
-          children: const [Expanded(child: _Message_List()), _TextBar()],
+          children: [Expanded(child: _Message_List()), _TextBar()],
         ),
       ),
     );
@@ -45,7 +44,7 @@ class _AppBarTitle extends StatelessWidget {
     Key? key,
     required this.messageData,
   }) : super(key: key);
-  final MessageData messageData;
+  final DestinationUser messageData;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +177,9 @@ class _MessageTile extends StatelessWidget {
 }
 
 class _TextBar extends StatelessWidget {
-  const _TextBar({Key? key}) : super(key: key);
+  _TextBar({Key? key}) : super(key: key);
+
+  TextEditingController messageTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -200,19 +201,27 @@ class _TextBar extends StatelessWidget {
                           blurRadius: 4,
                           color: Colors.black.withOpacity(0.2))
                     ]),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(left: 16),
                   child: TextField(
+                    controller: messageTextController,
                     style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                         hintText: "Type here", border: InputBorder.none),
                   ),
                 ),
               )),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 12, right: 4),
                 child: Action_Button(
-                    color: Color.fromARGB(255, 89, 122, 60), icon: Icons.send),
+                  color: Color.fromARGB(255, 89, 122, 60),
+                  icon: Icons.send,
+                  onPressed: () {
+                    Get.put(UserController())
+                        .sendMessage(messageTextController.text);
+                    messageTextController.clear();
+                  },
+                ),
               ),
             ],
           )),

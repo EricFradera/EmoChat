@@ -6,19 +6,19 @@ class Action_Button extends StatelessWidget {
     Key? key,
     required this.color,
     required this.icon,
+    required this.onPressed,
     this.size = 54,
   }) : super(key: key);
 
   final Color color;
   final IconData icon;
   final double size;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        //Do nothing
-      },
+      onPressed: onPressed,
       child: Icon(icon),
       style: ButtonStyle(
         shape: MaterialStateProperty.all(CircleBorder()),

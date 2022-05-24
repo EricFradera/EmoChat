@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/models/message_data.dart';
+import 'package:chat_app/models/destination_User.dart';
 import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,7 +40,7 @@ class ContactsList extends StatelessWidget {
 Widget _delegate(
     BuildContext context, String name, String url, String senderUid) {
   return _MessageCard(
-      messageData: MessageData(
+      messageData: DestinationUser(
           senderName: name,
           message: "Lorem ipsum",
           profilePicture: url,
@@ -50,7 +50,7 @@ Widget _delegate(
 class _MessageCard extends StatelessWidget {
   const _MessageCard({Key? key, required this.messageData}) : super(key: key);
 
-  final MessageData messageData;
+  final DestinationUser messageData;
 
   @override
   Widget build(BuildContext context) {

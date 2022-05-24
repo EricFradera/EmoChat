@@ -1,7 +1,8 @@
 import 'dart:ffi';
 
 import 'package:chat_app/models/chat.dart';
-import 'package:chat_app/models/message_data.dart';
+import 'package:chat_app/models/chat_message.dart';
+import 'package:chat_app/models/destination_User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class UserController extends GetxController {
   //if user is not in database adds, else do nothing
 
   EmoUser myUser = EmoUser.empty();
-  Chat selectedChat = Chat.empty();
+  DestinationUser selectedUser = DestinationUser.empty();
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<bool> tryAddUser(EmoUser user) async {
@@ -61,6 +62,11 @@ class UserController extends GetxController {
     update();
   }
 
+  void selectUser(DestinationUser destinationUser) {
+    selectedUser = destinationUser;
+    update();
+  }
+/* Sometimes the life is hard.
   Future<bool> tryGetChat(MessageData messageData) async {
     //First posible order query
     final query = await db
@@ -99,5 +105,15 @@ class UserController extends GetxController {
     db.collection("chats").add(newChat.toJson());
     selectedChat = newChat;
     update();
+  }*/
+
+  sendMessage(String message) {
+    ChatMessage msg = ChatMessage(
+        sender: myUser.uid,
+        reciever: selectedUser.senderUid,
+        message: message,
+        timestamp: Timestamp.now());
+
+    db.collection("messages").add(msg.toJson());
   }
 }
