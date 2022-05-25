@@ -107,13 +107,35 @@ class UserController extends GetxController {
     update();
   }*/
 
+  bool isOwnMsg(ChatMessage msg) {
+    if (msg.sender == myUser.uid) {
+      return true;
+    }
+    return false;
+  }
+
+  String getConversationID() {
+    return myUser.uid.hashCode <= selectedUser.senderUid.hashCode
+        ? myUser.uid + '' + selectedUser.senderUid
+        : selectedUser.senderUid + '' + myUser.uid;
+  }
+
   sendMessage(String message) {
     ChatMessage msg = ChatMessage(
+        chatId: getConversationID(),
         sender: myUser.uid,
         reciever: selectedUser.senderUid,
         message: message,
         timestamp: Timestamp.now());
 
     db.collection("messages").add(msg.toJson());
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChatMessages() {
+    return db
+        .collection("messages")
+        .where("chatId", isEqualTo: getConversationID())
+        .orderBy("timestamp", descending: false)
+        .snapshots();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/avatar.dart';
+import 'package:chat_app/models/chat_message.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/destination_User.dart';
@@ -80,14 +82,37 @@ class _Message_List extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8),
-      child: ListView(
-        children: [
-          _MessageTile(message: "HI"),
-          _Message_Own_Tile(message: "test"),
-          _MessageTile(message: "ACK"),
-        ],
-      ),
+      padding: const EdgeInsets.all(8.0),
+      child: StreamBuilder(
+          stream: Get.put(UserController()).getChatMessages(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot doc = snapshot.data!.docs[index];
+
+                ChatMessage msg = ChatMessage(
+                    chatId: doc['chatId'],
+                    sender: doc['sender'],
+                    reciever: doc['reciever'],
+                    message: doc['message'],
+                    timestamp: doc['timestamp']);
+
+                if (Get.put(UserController()).isOwnMsg(msg)) {
+                  return _Message_Own_Tile(message: msg.message);
+                } else {
+                  return _MessageTile(message: msg.message);
+                }
+              },
+            );
+          }),
     );
   }
 }
