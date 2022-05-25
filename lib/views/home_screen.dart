@@ -1,11 +1,14 @@
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/pages/howItWorks.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/contact_page.dart';
 import 'package:chat_app/pages/expressionPage.dart';
 import 'package:chat_app/theme.dart';
+import 'package:chat_app/views/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../custom widgets/widgets.dart';
 
@@ -35,18 +38,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
-        elevation: 0,
-        title: ValueListenableBuilder(
-          valueListenable: pagetitle,
-          builder: (BuildContext context, String value, _) {
-            return Text(
-              pagetitle.value,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            );
-          },
-        ),
-      ),
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
+          elevation: 0,
+          title: ValueListenableBuilder(
+            valueListenable: pagetitle,
+            builder: (BuildContext context, String value, _) {
+              return Text(
+                pagetitle.value,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              );
+            },
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                  onPressed: (() {
+                    Get.put(UserController()).trySingOut();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  }),
+                  icon: const Icon(Icons.exit_to_app)),
+            )
+          ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,
         builder: (BuildContext context, int value, _) {

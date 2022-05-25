@@ -62,6 +62,12 @@ class UserController extends GetxController {
     update();
   }
 
+  Future<void> trySingOut() async {
+    myUser = EmoUser.empty();
+    selectedUser = DestinationUser.empty();
+    await GoogleSignIn.standard().disconnect();
+  }
+
   void selectUser(DestinationUser destinationUser) {
     selectedUser = destinationUser;
     update();
