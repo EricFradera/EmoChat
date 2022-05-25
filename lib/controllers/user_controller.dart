@@ -66,6 +66,7 @@ class UserController extends GetxController {
     myUser = EmoUser.empty();
     selectedUser = DestinationUser.empty();
     await GoogleSignIn.standard().disconnect();
+    update();
   }
 
   void selectUser(DestinationUser destinationUser) {

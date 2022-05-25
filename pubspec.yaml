@@ -28,25 +28,20 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.2.0
+  cloud_firestore: ^3.1.14
   cupertino_icons: ^1.0.2
   drop_shadow: ^0.0.1+4
+  firebase_auth: ^3.3.17
+  firebase_core: ^1.16.0
+  firebase_storage: ^10.2.15
   flutter:
     sdk: flutter
-  google_fonts: ^2.3.2
-  firebase_auth: ^3.3.17
-  google_sign_in: ^5.3.1
-  cloud_firestore: ^3.1.14
-  firebase_storage: ^10.2.15
-  firebase_core: ^1.16.0
   get: ^4.6.5
-
+  google_fonts: ^2.3.2
+  google_sign_in: ^5.3.1
+  provider: ^6.0.3
 
 dev_dependencies:
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^1.0.0
   flutter_lints_plus: ^1.0.1
   flutter_test:
@@ -61,10 +56,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-
   assets:
     - lib/assets/white_back.png
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

@@ -1,5 +1,7 @@
 import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/avatar.dart';
+import 'package:chat_app/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/user.dart' as localUser;
@@ -12,7 +14,15 @@ class HowItWorks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        children: [_url_Profile()],
+        children: [
+          _url_Profile(),
+          Action_Button(
+              color: Colors.blue,
+              icon: Icons.access_alarm,
+              onPressed: () {
+                AppTheme.dark();
+              })
+        ],
       ),
     );
   }
