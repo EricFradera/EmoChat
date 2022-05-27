@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/pages/howItWorks.dart';
@@ -39,7 +40,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           elevation: 0,
           title: ValueListenableBuilder(
             valueListenable: pagetitle,
@@ -61,7 +62,12 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => LoginScreen()));
                   }),
                   icon: const Icon(Icons.exit_to_app)),
-            )
+            ),
+            IconButton(
+                onPressed: () {
+                  Get.put(Expression_theme_controller()).changeTheme(0, false);
+                },
+                icon: Icon(Icons.switch_access_shortcut))
           ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,

@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/import_views.dart';
 import 'package:chat_app/views/login_screen.dart';
@@ -42,13 +43,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false, //turn on for debug flag
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.light,
-      title: 'Emotive Chat',
-      home: LoginScreen(),
-    );
+    return Obx(() => GetMaterialApp(
+          debugShowCheckedModeBanner: false, //turn on for debug flag
+          theme: Get.put(Expression_theme_controller()).current.value,
+          title: 'Emotive Chat',
+          home: LoginScreen(),
+        ));
   }
 }

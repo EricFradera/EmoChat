@@ -128,14 +128,16 @@ class UserController extends GetxController {
   }
 
   sendMessage(String message) {
-    ChatMessage msg = ChatMessage(
-        chatId: getConversationID(),
-        sender: myUser.uid,
-        reciever: selectedUser.senderUid,
-        message: message,
-        timestamp: Timestamp.now());
+    if (!message.isEmpty) {
+      ChatMessage msg = ChatMessage(
+          chatId: getConversationID(),
+          sender: myUser.uid,
+          reciever: selectedUser.senderUid,
+          message: message,
+          timestamp: Timestamp.now());
 
-    db.collection("messages").add(msg.toJson());
+      db.collection("messages").add(msg.toJson());
+    }
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getChatMessages() {
