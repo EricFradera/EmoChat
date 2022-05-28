@@ -18,7 +18,7 @@ class UserController extends GetxController {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String docRef = "";
 
-  Future<bool> tryAddUser(EmoUser user) async {
+  /*Future<bool> tryAddUser(EmoUser user) async { NO LONGER USED, OLD VER
     try {
       final query =
           await db.collection("users").where('uid', isEqualTo: user.uid).get();
@@ -29,7 +29,7 @@ class UserController extends GetxController {
     } catch (e) {
       return false;
     }
-  }
+  }*/
 
   Future<void> signInUser() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -53,7 +53,7 @@ class UserController extends GetxController {
 
     EmoUser tempUser = await tryGetUser(userCredential);
 
-    tryAddUser(tempUser);
+    //tryAddUser(tempUser);
     myUser = tempUser;
 
     update();

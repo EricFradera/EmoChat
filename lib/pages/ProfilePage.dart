@@ -3,6 +3,7 @@ import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:chat_app/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/user.dart' as localUser;
@@ -14,81 +15,84 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          _url_Profile(),
-          Text("Current emotion is"),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(1, true);
-                        Get.put(UserController()).changeMood(1);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.orange),
-                      child: Text("Happy")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(2, true);
-                        Get.put(UserController()).changeMood(2);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.blue),
-                      child: Text("Sad")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(3, true);
-                        Get.put(UserController()).changeMood(3);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
-                      child: Text("Scared")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(4, true);
-                        Get.put(UserController()).changeMood(4);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.yellow),
-                      child: Text("Disgust")),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(5, true);
-                        Get.put(UserController()).changeMood(5);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.red),
-                      child: Text("Rage")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(6, true);
-                        Get.put(UserController()).changeMood(6);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.pink),
-                      child: Text("Surprise")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.put(Expression_theme_controller())
-                            .changeTheme(0, true);
-                        Get.put(UserController()).changeMood(0);
-                      },
-                      style: ElevatedButton.styleFrom(primary: Colors.grey),
-                      child: Text("Neutral")),
-                ],
-              )
-            ],
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            _responsiveProfile(),
+            Text("Current emotion is"),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(1, true);
+                          Get.put(UserController()).changeMood(1);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.orange),
+                        child: Text("Happy")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(2, true);
+                          Get.put(UserController()).changeMood(2);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.blue),
+                        child: Text("Sad")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(3, true);
+                          Get.put(UserController()).changeMood(3);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        child: Text("Scared")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(4, true);
+                          Get.put(UserController()).changeMood(4);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.yellow),
+                        child: Text("Disgust")),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(5, true);
+                          Get.put(UserController()).changeMood(5);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.red),
+                        child: Text("Rage")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(6, true);
+                          Get.put(UserController()).changeMood(6);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.pink),
+                        child: Text("Surprise")),
+                    ElevatedButton(
+                        onPressed: () {
+                          Get.put(Expression_theme_controller())
+                              .changeTheme(0, true);
+                          Get.put(UserController()).changeMood(0);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors.grey),
+                        child: Text("Neutral")),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -107,5 +111,30 @@ class ProfilePage extends StatelessWidget {
         mood: Get.put(UserController().myUser.mood),
       );
     }
+  }
+
+  Widget _responsiveProfile() {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .where('uid', isEqualTo: Get.put(UserController()).myUser.uid)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Column(
+            children: snapshot.data!.docs.map((document) {
+              return Profile.large(
+                  url: document["photoUrl"], mood: document["mood"]);
+            }).toList(),
+          );
+        });
+  }
+
+  Widget _delegate(String url, int mood) {
+    return Profile.large(url: url, mood: mood);
   }
 }

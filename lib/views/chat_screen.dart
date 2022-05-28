@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:chat_app/models/destination_User.dart';
 import 'package:get/get.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
 
   static Route route(DestinationUser data) => MaterialPageRoute(
@@ -20,13 +20,18 @@ class ChatScreen extends StatelessWidget {
   final DestinationUser destinationUser;
 
   @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
   Widget build(BuildContext context) {
-    Get.put(UserController()).selectUser(destinationUser);
+    Get.put(UserController()).selectUser(widget.destinationUser);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
         elevation: 0,
-        title: _AppBarTitle(messageData: destinationUser),
+        title: _AppBarTitle(messageData: widget.destinationUser),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -202,10 +207,23 @@ class _MessageTile extends StatelessWidget {
   }
 }
 
-class _TextBar extends StatelessWidget {
+enum ThemeType { neutral, happy, sad, angry, disgust, surprise, fear }
+
+class _TextBar extends StatefulWidget {
   _TextBar({Key? key}) : super(key: key);
 
+  @override
+  State<_TextBar> createState() => _TextBarState();
+}
+
+class _TextBarState extends State<_TextBar> {
   TextEditingController messageTextController = TextEditingController();
+
+  final bold = const TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
+
+  final italic = const TextStyle(fontStyle: FontStyle.italic, fontSize: 14);
+
+  int textMode = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -214,43 +232,87 @@ class _TextBar extends StatelessWidget {
       child: SafeArea(
           bottom: true,
           top: false,
-          child: Row(
+          child: Column(
             children: [
-              Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(230, 239, 218, 1),
-                    borderRadius: BorderRadius.circular(40),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 3),
-                          blurRadius: 4,
-                          color: Colors.black.withOpacity(0.2))
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: TextField(
-                    controller: messageTextController,
-                    style: TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                        hintText: "Type here", border: InputBorder.none),
+              Container(
+                height: 40,
+                width: double.infinity,
+                //decoration: BoxDecoration(color: Colors.amber),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    emotes("🙂", 1),
+                    emotes("😄", 2),
+                    /*emotes("😔"),
+                    emotes("😠"),
+                    emotes("🤢"),
+                    emotes("😮"),
+                    emotes("😨")*/
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromRGBO(230, 239, 218, 1),
+                        borderRadius: BorderRadius.circular(40),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0, 3),
+                              blurRadius: 4,
+                              color: Colors.black.withOpacity(0.2))
+                        ]),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: TextField(
+                        controller: messageTextController,
+                        style: TextStyle().merge(getTextStyle(textMode)),
+                        decoration: InputDecoration(
+                            hintText: "Type here", border: InputBorder.none),
+                      ),
+                    ),
+                  )),
+                  Padding(
+                    padding: EdgeInsets.only(left: 12, right: 4),
+                    child: Action_Button(
+                      color: Color.fromARGB(255, 89, 122, 60),
+                      icon: Icons.send,
+                      onPressed: () {
+                        Get.put(UserController())
+                            .sendMessage(messageTextController.text);
+                        messageTextController.clear();
+                      },
+                    ),
                   ),
-                ),
-              )),
-              Padding(
-                padding: EdgeInsets.only(left: 12, right: 4),
-                child: Action_Button(
-                  color: Color.fromARGB(255, 89, 122, 60),
-                  icon: Icons.send,
-                  onPressed: () {
-                    Get.put(UserController())
-                        .sendMessage(messageTextController.text);
-                    messageTextController.clear();
-                  },
-                ),
+                ],
               ),
             ],
           )),
     );
+  }
+
+  Widget emotes(String emoji, int newMode) {
+    return InkWell(
+      onTap: () => setState(() {
+        textMode = newMode;
+      }),
+      child: Text(
+        emoji,
+        style: const TextStyle(fontSize: 30),
+      ),
+    );
+  }
+
+  TextStyle getTextStyle(int mode) {
+    switch (mode) {
+      case 1:
+        return bold;
+      case 2:
+        return italic;
+      default:
+        return const TextStyle(fontSize: 14);
+    }
   }
 }
