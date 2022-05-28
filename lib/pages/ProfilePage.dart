@@ -104,7 +104,7 @@ class ProfilePage extends StatelessWidget {
     } else {
       return Profile.large(
         url: url,
-        mood: Get.put(UserController().currentMood),
+        mood: Get.put(UserController().myUser.mood),
       );
     }
   }

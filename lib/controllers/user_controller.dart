@@ -17,7 +17,6 @@ class UserController extends GetxController {
   DestinationUser selectedUser = DestinationUser.empty();
   FirebaseFirestore db = FirebaseFirestore.instance;
   String docRef = "";
-  var currentMood = 0;
 
   Future<bool> tryAddUser(EmoUser user) async {
     try {
@@ -99,7 +98,7 @@ class UserController extends GetxController {
     myUser = EmoUser.empty();
     selectedUser = DestinationUser.empty();
     docRef = "";
-    currentMood = 0;
+
     await GoogleSignIn.standard().disconnect();
     update();
   }
