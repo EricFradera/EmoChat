@@ -52,17 +52,47 @@ class UserController extends GetxController {
 
     //print(userCredential.user!.email.toString());
 
-    EmoUser tempUser = EmoUser(
-        uid: userCredential.user!.uid,
-        displayName: userCredential.user!.displayName ?? '',
-        email: userCredential.user!.email ?? '',
-        photoUrl: userCredential.user!.photoURL ?? '',
-        mood: 0);
+    EmoUser tempUser = await tryGetUser(userCredential);
 
     tryAddUser(tempUser);
     myUser = tempUser;
 
     update();
+  }
+
+  Future<EmoUser> tryGetUser(UserCredential userCred) async {
+    try {
+      final query = await db
+          .collection("users")
+          .where("uid", isEqualTo: userCred.user?.uid)
+          .get();
+      if (query.docs.isEmpty) {
+        return createUser(userCred);
+      } else {
+        var dataList = query.docs.map((doc) {
+          return EmoUser(
+              uid: doc["uid"],
+              displayName: doc["userName"],
+              email: doc["email"],
+              photoUrl: doc["photoUrl"],
+              mood: doc["mood"]);
+        });
+        return dataList.single;
+      }
+    } catch (e) {
+      return EmoUser.empty();
+    }
+  }
+
+  EmoUser createUser(UserCredential userCred) {
+    EmoUser tempUser = EmoUser(
+        uid: userCred.user!.uid,
+        displayName: userCred.user!.displayName ?? '',
+        email: userCred.user!.email ?? '',
+        photoUrl: userCred.user!.photoURL ?? '',
+        mood: 0);
+    db.collection("users").add(tempUser.toJson());
+    return tempUser;
   }
 
   Future<void> trySingOut() async {
@@ -78,46 +108,6 @@ class UserController extends GetxController {
     selectedUser = destinationUser;
     update();
   }
-/* Sometimes the life is hard.
-  Future<bool> tryGetChat(MessageData messageData) async {
-    //First posible order query
-    final query = await db
-        .collection("chats")
-        .where("uid1", isEqualTo: myUser.uid)
-        .where("uid2", isEqualTo: messageData.senderUid)
-        .get();
-
-    if (!query.docs.isEmpty) {
-      print("CHAT EXISTS V1");
-      selectedChat = Chat.fromJson(query.docs.single.data());
-      return true;
-    }
-
-    //Second posible order query
-    final query2 = await db
-        .collection("chats")
-        .where("uid2", isEqualTo: myUser.uid)
-        .where("uid1", isEqualTo: messageData.senderUid)
-        .get();
-
-    if (query2.docs.isEmpty) {
-      //Create the chat because it doesn't exists
-      print("CHAT NOT EXITST, CREATING...");
-      createChat(messageData);
-      return false;
-    }
-    print("CHAT EXISTS V2");
-    selectedChat = Chat.fromJson(query.docs.single.data());
-    return true;
-  }
-
-  void createChat(MessageData messageData) {
-    Chat newChat = Chat(uid1: myUser.uid, uid2: messageData.senderUid);
-
-    db.collection("chats").add(newChat.toJson());
-    selectedChat = newChat;
-    update();
-  }*/
 
   bool isOwnMsg(ChatMessage msg) {
     if (msg.sender == myUser.uid) {
