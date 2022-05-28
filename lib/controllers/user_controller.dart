@@ -61,9 +61,6 @@ class UserController extends GetxController {
 
     tryAddUser(tempUser);
     myUser = tempUser;
-    QuerySnapshot query =
-        await db.collection("users").where("uid", isEqualTo: myUser.uid).get();
-    docRef = query.docs.single.reference.id;
 
     update();
   }
@@ -71,6 +68,8 @@ class UserController extends GetxController {
   Future<void> trySingOut() async {
     myUser = EmoUser.empty();
     selectedUser = DestinationUser.empty();
+    docRef = "";
+    currentMood = 0;
     await GoogleSignIn.standard().disconnect();
     update();
   }
@@ -155,6 +154,13 @@ class UserController extends GetxController {
   }
 
   changeMood(int i) async {
+    if (docRef.isEmpty) {
+      QuerySnapshot query = await db
+          .collection("users")
+          .where("uid", isEqualTo: myUser.uid)
+          .get();
+      docRef = query.docs.single.reference.id;
+    }
     myUser.mood = i;
     await db.collection("users").doc(docRef).update(myUser.toJson());
     update();
