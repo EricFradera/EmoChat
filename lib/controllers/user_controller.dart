@@ -121,14 +121,15 @@ class UserController extends GetxController {
         : selectedUser.senderUid + '' + myUser.uid;
   }
 
-  sendMessage(String message) {
+  sendMessage(String message, int emotion) {
     if (!message.isEmpty) {
       ChatMessage msg = ChatMessage(
           chatId: getConversationID(),
           sender: myUser.uid,
           reciever: selectedUser.senderUid,
           message: message,
-          timestamp: Timestamp.now());
+          timestamp: Timestamp.now(),
+          emotion: emotion);
 
       db.collection("messages").add(msg.toJson());
     }

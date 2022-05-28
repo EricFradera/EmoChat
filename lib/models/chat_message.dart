@@ -6,13 +6,15 @@ class ChatMessage {
   String reciever;
   String message;
   Timestamp timestamp;
+  int emotion = 0;
 
   ChatMessage(
       {required this.chatId,
       required this.sender,
       required this.reciever,
       required this.message,
-      required this.timestamp});
+      required this.timestamp,
+      required this.emotion});
 
   Map<String, dynamic> toJson() => {
         'chatId': chatId,
@@ -20,6 +22,7 @@ class ChatMessage {
         'reciever': reciever,
         'message': message,
         'timestamp': timestamp,
+        'emotion': emotion
       };
 
   ChatMessage.fromJson(Map<String, dynamic> json)
@@ -27,5 +30,6 @@ class ChatMessage {
         sender = json['sender'],
         reciever = json['reciever'],
         message = json['message'],
-        timestamp = json['timestamp'];
+        timestamp = json['timestamp'],
+        emotion = json['emotion'];
 }

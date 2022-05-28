@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
@@ -109,12 +110,17 @@ class _Message_List extends StatelessWidget {
                     sender: doc['sender'],
                     reciever: doc['reciever'],
                     message: doc['message'],
-                    timestamp: doc['timestamp']);
+                    timestamp: doc['timestamp'],
+                    emotion: doc['emotion']);
 
                 if (Get.put(UserController()).isOwnMsg(msg)) {
-                  return _Message_Own_Tile(message: msg.message);
+                  return _Message_Own_Tile(
+                    message: msg.message,
+                    emotion: msg.emotion,
+                  );
                 } else {
-                  return _MessageTile(message: msg.message);
+                  return _MessageTile(
+                      message: msg.message, emotion: msg.emotion);
                 }
               },
             );
@@ -124,9 +130,12 @@ class _Message_List extends StatelessWidget {
 }
 
 class _Message_Own_Tile extends StatelessWidget {
-  const _Message_Own_Tile({Key? key, required this.message}) : super(key: key);
+  const _Message_Own_Tile(
+      {Key? key, required this.message, required this.emotion})
+      : super(key: key);
 
   final String message;
+  final int emotion;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +149,8 @@ class _Message_Own_Tile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: const Color.fromRGBO(230, 239, 218, 1),
+                  color:
+                      Get.put(Expression_theme_controller()).secondary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(5),
@@ -166,9 +176,11 @@ class _Message_Own_Tile extends StatelessWidget {
 }
 
 class _MessageTile extends StatelessWidget {
-  const _MessageTile({Key? key, required this.message}) : super(key: key);
+  const _MessageTile({Key? key, required this.message, required this.emotion})
+      : super(key: key);
 
   final String message;
+  final int emotion;
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +194,8 @@ class _MessageTile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color:
+                      Get.put(Expression_theme_controller()).secondary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(30),
@@ -207,7 +220,7 @@ class _MessageTile extends StatelessWidget {
   }
 }
 
-enum ThemeType { neutral, happy, sad, angry, disgust, surprise, fear }
+enum emotionVal { neutral, happy, sad, angry, disgust, surprise, fear }
 
 class _TextBar extends StatefulWidget {
   _TextBar({Key? key}) : super(key: key);
@@ -223,7 +236,7 @@ class _TextBarState extends State<_TextBar> {
 
   final italic = const TextStyle(fontStyle: FontStyle.italic, fontSize: 14);
 
-  int textMode = 0;
+  int emotionMode = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -241,13 +254,13 @@ class _TextBarState extends State<_TextBar> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    emotes("🙂", 1),
-                    emotes("😄", 2),
-                    /*emotes("😔"),
-                    emotes("😠"),
-                    emotes("🤢"),
-                    emotes("😮"),
-                    emotes("😨")*/
+                    emotes("🙂", emotionVal.neutral.index),
+                    emotes("😄", emotionVal.happy.index),
+                    emotes("😔", emotionVal.sad.index),
+                    emotes("😠", emotionVal.angry.index),
+                    emotes("🤢", emotionVal.disgust.index),
+                    emotes("😮", emotionVal.surprise.index),
+                    emotes("😨", emotionVal.fear.index)
                   ],
                 ),
               ),
@@ -256,7 +269,7 @@ class _TextBarState extends State<_TextBar> {
                   Expanded(
                       child: Container(
                     decoration: BoxDecoration(
-                        color: const Color.fromRGBO(230, 239, 218, 1),
+                        color: getColor(emotionMode),
                         borderRadius: BorderRadius.circular(40),
                         boxShadow: [
                           BoxShadow(
@@ -268,7 +281,7 @@ class _TextBarState extends State<_TextBar> {
                       padding: EdgeInsets.only(left: 16),
                       child: TextField(
                         controller: messageTextController,
-                        style: TextStyle().merge(getTextStyle(textMode)),
+                        style: TextStyle().merge(getTextStyle(emotionMode)),
                         decoration: InputDecoration(
                             hintText: "Type here", border: InputBorder.none),
                       ),
@@ -277,12 +290,13 @@ class _TextBarState extends State<_TextBar> {
                   Padding(
                     padding: EdgeInsets.only(left: 12, right: 4),
                     child: Action_Button(
-                      color: Color.fromARGB(255, 89, 122, 60),
+                      color: getColor(emotionMode),
                       icon: Icons.send,
                       onPressed: () {
-                        Get.put(UserController())
-                            .sendMessage(messageTextController.text);
+                        Get.put(UserController()).sendMessage(
+                            messageTextController.text, emotionMode);
                         messageTextController.clear();
+                        setState(() => emotionMode = 0);
                       },
                     ),
                   ),
@@ -296,7 +310,7 @@ class _TextBarState extends State<_TextBar> {
   Widget emotes(String emoji, int newMode) {
     return InkWell(
       onTap: () => setState(() {
-        textMode = newMode;
+        emotionMode = newMode;
       }),
       child: Text(
         emoji,
@@ -314,5 +328,9 @@ class _TextBarState extends State<_TextBar> {
       default:
         return const TextStyle(fontSize: 14);
     }
+  }
+
+  Color getColor(int mode) {
+    return Get.put(Expression_theme_controller()).secondary[mode];
   }
 }
