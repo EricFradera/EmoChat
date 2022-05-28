@@ -5,7 +5,7 @@ class EmoUser {
   String displayName = '';
   String email = '';
   String photoUrl = '';
-  String mood = '';
+  int mood = 0;
   final List<ExpressionPreferences> expressionPreferences = [];
 
   EmoUser({

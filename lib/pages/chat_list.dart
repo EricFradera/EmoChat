@@ -30,7 +30,7 @@ class ContactsList extends StatelessWidget {
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return _delegate(context, document["userName"],
-                  document["photoUrl"], document["uid"]);
+                  document["photoUrl"], document["uid"], document["mood"]);
             }).toList(),
           );
         });
@@ -38,13 +38,14 @@ class ContactsList extends StatelessWidget {
 }
 
 Widget _delegate(
-    BuildContext context, String name, String url, String senderUid) {
+    BuildContext context, String name, String url, String senderUid, mood) {
   return _MessageCard(
       messageData: DestinationUser(
           senderName: name,
           message: "Lorem ipsum",
           profilePicture: url,
-          senderUid: senderUid));
+          senderUid: senderUid,
+          mood: mood));
 }
 
 class _MessageCard extends StatelessWidget {
@@ -65,7 +66,8 @@ class _MessageCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Profile.medium(url: messageData.profilePicture),
+              child: Profile.medium(
+                  url: messageData.profilePicture, mood: messageData.mood),
             ),
             Expanded(
                 child: Column(

@@ -1,7 +1,7 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
-import 'package:chat_app/pages/howItWorks.dart';
+import 'package:chat_app/pages/ProfilePage.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/contact_page.dart';
 import 'package:chat_app/pages/expressionPage.dart';
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
   final pages = [
     ContactsList(),
     ExpressionPage(),
-    HowItWorks(),
+    ProfilePage(),
     ContactPage(),
   ];
 
@@ -64,10 +64,7 @@ class HomeScreen extends StatelessWidget {
                   icon: const Icon(Icons.exit_to_app)),
             ),
             IconButton(
-                onPressed: () {
-                  Get.put(Expression_theme_controller()).changeTheme(0, false);
-                },
-                icon: Icon(Icons.switch_access_shortcut))
+                onPressed: () {}, icon: Icon(Icons.switch_access_shortcut))
           ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,

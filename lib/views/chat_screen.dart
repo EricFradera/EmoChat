@@ -1,6 +1,6 @@
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
-import 'package:chat_app/custom%20widgets/avatar.dart';
+import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,8 +53,9 @@ class _AppBarTitle extends StatelessWidget {
     return Row(
       children: [
         Profile.small(
-            // remove conts when dynamically add picture
-            url: messageData.profilePicture),
+          // remove conts when dynamically add picture
+          url: messageData.profilePicture, mood: messageData.mood,
+        ),
         const SizedBox(
           width: 16,
         ),

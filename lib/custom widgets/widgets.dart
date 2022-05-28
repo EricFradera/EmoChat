@@ -1,1 +1,1 @@
-export 'avatar.dart';
+export 'profile.dart';

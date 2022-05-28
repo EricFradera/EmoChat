@@ -16,6 +16,8 @@ class UserController extends GetxController {
   EmoUser myUser = EmoUser.empty();
   DestinationUser selectedUser = DestinationUser.empty();
   FirebaseFirestore db = FirebaseFirestore.instance;
+  String docRef = "";
+  var currentMood = 0;
 
   Future<bool> tryAddUser(EmoUser user) async {
     try {
@@ -55,10 +57,14 @@ class UserController extends GetxController {
         displayName: userCredential.user!.displayName ?? '',
         email: userCredential.user!.email ?? '',
         photoUrl: userCredential.user!.photoURL ?? '',
-        mood: '');
+        mood: 0);
 
     tryAddUser(tempUser);
     myUser = tempUser;
+    QuerySnapshot query =
+        await db.collection("users").where("uid", isEqualTo: myUser.uid).get();
+    docRef = query.docs.single.reference.id;
+
     update();
   }
 
@@ -146,5 +152,11 @@ class UserController extends GetxController {
         .where("chatId", isEqualTo: getConversationID())
         .orderBy("timestamp", descending: false)
         .snapshots();
+  }
+
+  changeMood(int i) async {
+    myUser.mood = i;
+    await db.collection("users").doc(docRef).update(myUser.toJson());
+    update();
   }
 }
