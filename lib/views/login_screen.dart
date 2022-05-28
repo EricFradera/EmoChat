@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/logInButton.dart';
 import 'package:chat_app/models/user.dart' as localUser;
@@ -74,6 +75,8 @@ class LoginScreen extends StatelessWidget {
 
   Future<void> _handleSignIn(context) async {
     await Get.put(UserController()).signInUser();
+    Get.put(Expression_theme_controller())
+        .changeTheme(Get.put(UserController()).myUser.mood, true);
     Route route = MaterialPageRoute(builder: (context) => HomeScreen());
     Navigator.pushReplacement(context, route);
   }
