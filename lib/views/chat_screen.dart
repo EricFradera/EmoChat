@@ -4,7 +4,6 @@ import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/destination_User.dart';
 import 'package:get/get.dart';
@@ -30,18 +29,12 @@ class _ChatScreenState extends State<ChatScreen> {
     Get.put(UserController()).selectUser(widget.destinationUser);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(89, 122, 66, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         title: _AppBarTitle(messageData: widget.destinationUser),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("lib/assets/white_back.png"),
-                fit: BoxFit.cover)),
-        child: Column(
-          children: [Expanded(child: _Message_List()), _TextBar()],
-        ),
+      body: Column(
+        children: [Expanded(child: _Message_List()), _TextBar()],
       ),
     );
   }
@@ -150,7 +143,7 @@ class _Message_Own_Tile extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   color:
-                      Get.put(Expression_theme_controller()).secondary[emotion],
+                      Get.put(Expression_theme_controller()).primary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(5),
@@ -195,7 +188,7 @@ class _MessageTile extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   color:
-                      Get.put(Expression_theme_controller()).secondary[emotion],
+                      Get.put(Expression_theme_controller()).primary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(30),
@@ -278,17 +271,17 @@ class _TextBarState extends State<_TextBar> {
                               color: Colors.black.withOpacity(0.2))
                         ]),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 16),
+                      padding: const EdgeInsets.only(left: 16),
                       child: TextField(
                         controller: messageTextController,
                         style: TextStyle().merge(getTextStyle(emotionMode)),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "Type here", border: InputBorder.none),
                       ),
                     ),
                   )),
                   Padding(
-                    padding: EdgeInsets.only(left: 12, right: 4),
+                    padding: const EdgeInsets.only(left: 12, right: 4),
                     child: Action_Button(
                       color: getColor(emotionMode),
                       icon: Icons.send,
@@ -331,6 +324,6 @@ class _TextBarState extends State<_TextBar> {
   }
 
   Color getColor(int mode) {
-    return Get.put(Expression_theme_controller()).secondary[mode];
+    return Get.put(Expression_theme_controller()).primary[mode];
   }
 }

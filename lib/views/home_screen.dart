@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           elevation: 0,
           title: ValueListenableBuilder(
             valueListenable: pagetitle,
@@ -112,6 +112,8 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
         top: false,
         bottom: true,
         child: Container(
+          decoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.primary),
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
             child: Row(
@@ -190,7 +192,9 @@ class _NavigationBarItem extends StatelessWidget {
             Icon(
               icon,
               size: 20,
-              color: isSelected ? AppColors.secondary : null,
+              color: isSelected
+                  ? Theme.of(context).colorScheme.tertiary
+                  : Theme.of(context).colorScheme.secondary,
             ),
             const SizedBox(
               height: 8,
@@ -200,7 +204,7 @@ class _NavigationBarItem extends StatelessWidget {
                     ? const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.secondary)
+                      )
                     : const TextStyle(
                         fontSize: 11,
                       ))

@@ -22,54 +22,47 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("lib/assets/white_back.png"),
-              fit: BoxFit.cover)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Column(
-              children: [
-                Center(
+        body: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Center(
+            child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  "Inicia sessión en EmoChat",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                      letterSpacing: 0.5,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
                   child: Text(
-                    "Inicia sessión en EmoChat",
+                    "Interactua, comunica en una experiencia Afectiva",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
-                        color: Colors.black87,
-                        letterSpacing: 0.5,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
+                        letterSpacing: 0.1,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Interactua, comunica en una experiencia Afectiva",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                          letterSpacing: 0.1,
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )),
-          /*ElevatedButton(
-            onPressed: () => _handleSignIn(context),
-            child: const Text('SIGN IN'),
-          ),*/ //old button
-          logInButton(onPressed: (() => _handleSignIn(context)))
-        ],
-      ),
+              )
+            ],
+          ),
+        )),
+        /*ElevatedButton(
+              onPressed: () => _handleSignIn(context),
+              child: const Text('SIGN IN'),
+            ),*/ //old button
+        logInButton(onPressed: (() => _handleSignIn(context)))
+      ],
     ));
   }
 
