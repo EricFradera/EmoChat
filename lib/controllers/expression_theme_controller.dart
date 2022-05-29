@@ -12,13 +12,13 @@ enum ThemeType { Neutral, Happy, Sad, Angry, Disgust, Surprise, Fear }
 class Expression_theme_controller extends GetxController {
   final currentMood = ThemeType.Neutral;
   List<Color> secondary = const [
-    Color.fromARGB(255, 59, 118, 246),
-    Color.fromARGB(255, 239, 20, 210),
-    Color.fromARGB(255, 63, 157, 0),
-    Color.fromARGB(255, 77, 77, 0),
-    Color.fromARGB(255, 93, 53, 0),
-    Color.fromARGB(255, 21, 32, 0),
-    Color.fromARGB(255, 100, 162, 0)
+    Color.fromARGB(255, 217, 231, 203),
+    Color.fromARGB(255, 224, 220, 105),
+    Color.fromARGB(255, 204, 205, 229),
+    Color.fromARGB(255, 224, 175, 203),
+    Color.fromARGB(255, 204, 229, 225),
+    Color.fromARGB(255, 226, 199, 150),
+    Color.fromARGB(255, 226, 226, 226)
   ];
   List<Color> accent = [Color(0xFFD6755B)];
   List<Color> textDark = [Color(0xFF53585A)];
@@ -34,13 +34,13 @@ class Expression_theme_controller extends GetxController {
     brightness: Brightness.light,
     //accentColor: accent[0],
     //visualDensity: visualDensity,
-    textTheme:
-        GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
+    textTheme: GoogleFonts.mulishTextTheme()
+        .apply(bodyColor: Color.fromARGB(255, 32, 32, 32)),
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
     cardColor: AppColors.cardLight,
     primaryTextTheme: const TextTheme(
-      headline6: TextStyle(color: AppColors.textDark),
+      headline6: TextStyle(color: Color.fromARGB(255, 32, 32, 32)),
     ),
     iconTheme: const IconThemeData(color: AppColors.iconDark),
   )).obs;
