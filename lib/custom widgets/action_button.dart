@@ -1,8 +1,7 @@
-import 'package:chat_app/theme.dart';
 import "package:flutter/material.dart";
 
-class Action_Button extends StatelessWidget {
-  const Action_Button({
+class ActionButton extends StatelessWidget {
+  const ActionButton({
     Key? key,
     required this.color,
     required this.icon,
@@ -21,14 +20,10 @@ class Action_Button extends StatelessWidget {
       onPressed: onPressed,
       child: Icon(icon),
       style: ButtonStyle(
-        shape: MaterialStateProperty.all(CircleBorder()),
-        padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+        shape: MaterialStateProperty.all(const CircleBorder()),
+        padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
         backgroundColor: MaterialStateProperty.all(color),
         elevation: MaterialStateProperty.all(4),
-        overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-          if (states.contains(MaterialState.pressed))
-            return Colors.amberAccent; // <-- Splash color
-        }),
       ),
     );
   }

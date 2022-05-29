@@ -1,12 +1,11 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/custom%20widgets/logInButton.dart';
-
-import 'package:chat_app/views/import_views.dart';
-
+import 'package:chat_app/custom%20widgets/log_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -49,11 +48,7 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         )),
-        /*ElevatedButton(
-              onPressed: () => _handleSignIn(context),
-              child: const Text('SIGN IN'),
-            ),*/ //old button
-        logInButton(onPressed: (() => _handleSignIn(context)))
+        LogInButton(onPressed: (() => _handleSignIn(context)))
       ],
     ));
   }

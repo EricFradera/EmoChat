@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
-import 'package:chat_app/models/chat.dart';
 import 'package:chat_app/models/chat_message.dart';
-import 'package:chat_app/models/destination_User.dart';
+import 'package:chat_app/models/destination_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -17,19 +14,6 @@ class UserController extends GetxController {
   DestinationUser selectedUser = DestinationUser.empty();
   FirebaseFirestore db = FirebaseFirestore.instance;
   String docRef = "";
-
-  /*Future<bool> tryAddUser(EmoUser user) async { NO LONGER USED, OLD VER
-    try {
-      final query =
-          await db.collection("users").where('uid', isEqualTo: user.uid).get();
-      if (query.docs.isEmpty) {
-        db.collection("users").add(user.toJson());
-      }
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }*/
 
   Future<void> signInUser() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -122,7 +106,7 @@ class UserController extends GetxController {
   }
 
   sendMessage(String message, int emotion) {
-    if (!message.isEmpty) {
+    if (message.isNotEmpty) {
       ChatMessage msg = ChatMessage(
           chatId: getConversationID(),
           sender: myUser.uid,

@@ -5,11 +5,11 @@ import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/models/destination_User.dart';
+import 'package:chat_app/models/destination_user.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
+  const ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
 
   static Route route(DestinationUser data) => MaterialPageRoute(
         builder: (context) => ChatScreen(
@@ -34,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: _AppBarTitle(messageData: widget.destinationUser),
       ),
       body: Column(
-        children: [Expanded(child: _Message_List()), _TextBar()],
+        children: const [Expanded(child: _MessageList()), _TextBar()],
       ),
     );
   }
@@ -76,8 +76,8 @@ class _AppBarTitle extends StatelessWidget {
   }
 }
 
-class _Message_List extends StatelessWidget {
-  const _Message_List({Key? key}) : super(key: key);
+class _MessageList extends StatelessWidget {
+  const _MessageList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,7 @@ class _Message_List extends StatelessWidget {
                     emotion: doc['emotion']);
 
                 if (Get.put(UserController()).isOwnMsg(msg)) {
-                  return _Message_Own_Tile(
+                  return _MessageOwnTile(
                     message: msg.message,
                     emotion: msg.emotion,
                   );
@@ -122,8 +122,8 @@ class _Message_List extends StatelessWidget {
   }
 }
 
-class _Message_Own_Tile extends StatelessWidget {
-  const _Message_Own_Tile(
+class _MessageOwnTile extends StatelessWidget {
+  const _MessageOwnTile(
       {Key? key, required this.message, required this.emotion})
       : super(key: key);
 
@@ -150,7 +150,7 @@ class _Message_Own_Tile extends StatelessWidget {
                       bottomRight: Radius.circular(30)),
                   boxShadow: [
                     BoxShadow(
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                         blurRadius: 4,
                         color: Colors.black.withOpacity(0.2))
                   ]),
@@ -177,7 +177,7 @@ class _MessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 50),
+      margin: const EdgeInsets.only(right: 50),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Column(
@@ -194,7 +194,7 @@ class _MessageTile extends StatelessWidget {
                       bottomRight: Radius.circular(30)),
                   boxShadow: [
                     BoxShadow(
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                         blurRadius: 4,
                         color: Colors.black.withOpacity(0.2))
                   ]),
@@ -214,7 +214,7 @@ class _MessageTile extends StatelessWidget {
 enum emotionVal { neutral, happy, sad, angry, disgust, surprise, fear }
 
 class _TextBar extends StatefulWidget {
-  _TextBar({Key? key}) : super(key: key);
+  const _TextBar({Key? key}) : super(key: key);
 
   @override
   State<_TextBar> createState() => _TextBarState();
@@ -272,7 +272,8 @@ class _TextBarState extends State<_TextBar> {
                       padding: const EdgeInsets.only(left: 16),
                       child: TextField(
                         controller: messageTextController,
-                        style: TextStyle().merge(getTextStyle(emotionMode)),
+                        style:
+                            const TextStyle().merge(getTextStyle(emotionMode)),
                         decoration: const InputDecoration(
                             hintText: "Type here", border: InputBorder.none),
                       ),
@@ -280,7 +281,7 @@ class _TextBarState extends State<_TextBar> {
                   )),
                   Padding(
                     padding: const EdgeInsets.only(left: 12, right: 4),
-                    child: Action_Button(
+                    child: ActionButton(
                       color: getColor(emotionMode),
                       icon: Icons.send,
                       onPressed: () {

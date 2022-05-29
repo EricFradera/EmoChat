@@ -1,17 +1,13 @@
-import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/custom%20widgets/action_button.dart';
-import 'package:chat_app/pages/ProfilePage.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/contact_page.dart';
-import 'package:chat_app/pages/expressionPage.dart';
-import 'package:chat_app/theme.dart';
 import 'package:chat_app/views/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../custom widgets/widgets.dart';
+import '../pages/Profile_page.dart';
+import '../pages/expression_page.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -22,10 +18,10 @@ class HomeScreen extends StatelessWidget {
   final ValueNotifier<String> pagetitle = ValueNotifier("Message");
 
   final pages = [
-    ContactsList(),
-    ExpressionPage(),
-    ProfilePage(),
-    ContactPage(),
+    const ContactsList(),
+    const ExpressionPage(),
+    const ProfilePage(),
+    const ContactPage(),
   ];
 
   final title = const [
@@ -58,13 +54,16 @@ class HomeScreen extends StatelessWidget {
               child: IconButton(
                   onPressed: (() {
                     Get.put(UserController()).trySingOut();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   }),
                   icon: const Icon(Icons.exit_to_app)),
             ),
             IconButton(
-                onPressed: () {}, icon: Icon(Icons.switch_access_shortcut))
+                onPressed: () {},
+                icon: const Icon(Icons.switch_access_shortcut))
           ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,
@@ -73,12 +72,12 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: _BottomNavigationBar(
-        onPageSelected: _OnNavigationSelected,
+        onPageSelected: _on_Navigation_Selected,
       ),
     );
   }
 
-  void _OnNavigationSelected(index) {
+  void _on_Navigation_Selected(index) {
     pagetitle.value = title[index];
     pageIndex.value = index;
   }

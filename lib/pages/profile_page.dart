@@ -1,16 +1,13 @@
-import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
-import 'package:chat_app/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/models/user.dart' as localUser;
 import 'package:get/get.dart';
 
+import '../controllers/expression_theme_controller.dart';
+
 class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -151,22 +148,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  /*Widget _url_Profile() { // UNRESPONSIVE VER
-    String url = Get.put(UserController()).myUser.photoUrl;
-    if (url == '') {
-      return Profile.large(
-        url:
-            "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-        mood: 0,
-      );
-    } else {
-      return Profile.large(
-        url: url,
-        mood: Get.put(UserController().myUser.mood),
-      );
-    }
-  }*/
-
   Widget _responsiveProfile() {
     return StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -186,9 +167,5 @@ class ProfilePage extends StatelessWidget {
             }).toList(),
           );
         });
-  }
-
-  Widget _delegate(String url, int mood) {
-    return Profile.large(url: url, mood: mood);
   }
 }

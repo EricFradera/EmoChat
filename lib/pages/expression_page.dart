@@ -96,7 +96,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [],
+                      children: const [],
                     ),
                   ),
                   const Padding(
@@ -108,7 +108,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [],
+                      children: const [],
                     ),
                   ),
                 ],

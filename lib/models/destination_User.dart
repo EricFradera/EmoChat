@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class DestinationUser {
   String senderName = '';
   String message = '';

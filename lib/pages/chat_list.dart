@@ -1,18 +1,13 @@
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/models/destination_User.dart';
-import 'package:chat_app/theme.dart';
+import 'package:chat_app/models/destination_user.dart';
 import 'package:chat_app/views/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-
-import '../custom widgets/widgets.dart';
+import '../custom widgets/profile.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  ContactsList({Key? key}) : super(key: key);
+  const ContactsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +85,7 @@ class _MessageCard extends StatelessWidget {
                   child: Text(
                     messageData.message,
                     style: const TextStyle(
-                        fontWeight: FontWeight.w100,
-                        color: AppColors.textFaded),
+                        fontWeight: FontWeight.w100, color: Color(0xFF9899A5)),
                     overflow: TextOverflow.ellipsis,
                   ),
                 )

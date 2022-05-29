@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../theme.dart';
-
 enum ThemeType { neutral, happy, sad, angry, disgust, surprise, fear }
 
 class ExpressionThemeController extends GetxController {
@@ -45,26 +43,19 @@ class ExpressionThemeController extends GetxController {
     Color.fromARGB(255, 0, 0, 0),
   ];
   // NOT NEEDED FOR NOW
-  List<Color> textDark = [Color(0xFF53585A)];
-  List<Color> textLigth = [Color(0xFFF5F5F5)];
-  List<Color> textFaded = [Color(0xFF9899A5)];
-  List<Color> iconLight = [Color(0xFFB1B4C0)];
-  List<Color> iconDark = [Color(0xFFB1B3C1)];
-  List<Color> textHighlight = [Color(0xFF3B76F6)];
-  List<Color> cardLight = [Color(0xFFF9FAFE)];
-  List<Color> cardDark = [Color(0xFF303334)];
+
   final visualDensity = VisualDensity.adaptivePlatformDensity;
   var current = (ThemeData(
     brightness: Brightness.light,
     textTheme: GoogleFonts.mulishTextTheme()
-        .apply(bodyColor: Color.fromARGB(255, 85, 98, 76)),
-    backgroundColor: Color.fromARGB(255, 253, 253, 245),
-    scaffoldBackgroundColor: Color.fromARGB(255, 253, 253, 245),
-    cardColor: Color.fromARGB(255, 253, 253, 245),
+        .apply(bodyColor: const Color.fromARGB(255, 85, 98, 76)),
+    backgroundColor: const Color.fromARGB(255, 253, 253, 245),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 253, 253, 245),
+    cardColor: const Color.fromARGB(255, 253, 253, 245),
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Color.fromARGB(255, 85, 98, 76)),
     ),
-    iconTheme: const IconThemeData(color: AppColors.iconDark),
+    iconTheme: const IconThemeData(color: Colors.black),
   )).obs;
 
   void changeTheme(int emotion, bool light) {
@@ -89,7 +80,7 @@ class ExpressionThemeController extends GetxController {
       backgroundColor: secondary.elementAt(emotion),
       scaffoldBackgroundColor: secondary.elementAt(emotion),
       cardColor: secondary.elementAt(emotion),
-      iconTheme: const IconThemeData(color: AppColors.iconDark),
+      iconTheme: const IconThemeData(color: Colors.black),
     );
   }
 

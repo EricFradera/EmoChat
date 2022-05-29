@@ -1,4 +1,4 @@
-import 'package:chat_app/models/expressionPreferences.dart';
+import 'package:chat_app/models/expression_preferences.dart';
 
 class EmoUser {
   String uid = '';

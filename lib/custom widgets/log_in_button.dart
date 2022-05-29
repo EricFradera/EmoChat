@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class logInButton extends StatelessWidget {
-  const logInButton({Key? key, required this.onPressed}) : super(key: key);
+class LogInButton extends StatelessWidget {
+  const LogInButton({Key? key, required this.onPressed}) : super(key: key);
 
   final VoidCallback onPressed;
 
@@ -14,11 +13,11 @@ class logInButton extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 217, 231, 203),
+          color: const Color.fromARGB(255, 217, 231, 203),
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
                 blurRadius: 4,
                 color: Colors.black.withOpacity(0.2))
           ]),

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +19,7 @@ class Profile extends StatelessWidget {
 
   final double radius;
   final String url;
-  final mood;
+  final int mood;
   //final Color color;
   @override
   Widget build(BuildContext context) {
