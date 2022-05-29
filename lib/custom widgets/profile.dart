@@ -35,6 +35,6 @@ class Profile extends StatelessWidget {
   }
 
   Color getCircleColor() {
-    return Get.put(Expression_theme_controller()).getEmotionColor(mood);
+    return Get.put(ExpressionThemeController()).getEmotionColor(mood);
   }
 }

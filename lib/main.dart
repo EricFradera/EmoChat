@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => GetMaterialApp(
           debugShowCheckedModeBanner: false, //turn on for debug flag
-          theme: Get.put(Expression_theme_controller()).current.value,
+          theme: Get.put(ExpressionThemeController()).current.value,
           title: 'Emotive Chat',
           home: LoginScreen(),
         ));

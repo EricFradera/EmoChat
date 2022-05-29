@@ -1,16 +1,13 @@
-import 'dart:ui';
-
-import 'package:chat_app/models/theme_expression.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../theme.dart';
 
-enum ThemeType { Neutral, Happy, Sad, Angry, Disgust, Surprise, Fear }
+enum ThemeType { neutral, happy, sad, angry, disgust, surprise, fear }
 
-class Expression_theme_controller extends GetxController {
-  final currentMood = ThemeType.Neutral;
+class ExpressionThemeController extends GetxController {
+  final currentMood = ThemeType.neutral;
   List<Color> primary = const [
     Color.fromARGB(255, 217, 231, 203),
     Color.fromARGB(255, 224, 220, 105),
@@ -71,46 +68,29 @@ class Expression_theme_controller extends GetxController {
   )).obs;
 
   void changeTheme(int emotion, bool light) {
-    current.value = buildTheme(emotion, light);
+    current.value = buildTheme(emotion);
     update();
   }
 
-  ThemeData buildTheme(int emotion, bool light) {
-    if (light) {
-      return ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: primary.elementAt(emotion),
-            secondary: secondary.elementAt(emotion),
-            tertiary: tertiaryColor.elementAt(emotion)),
-        //primaryColor: ,
-        appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(color: secondary.elementAt(emotion)),
-            titleTextStyle: TextStyle(color: tertiaryColor.elementAt(emotion))),
+  ThemeData buildTheme(int emotion) {
+    return ThemeData(
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: primary.elementAt(emotion),
+          secondary: secondary.elementAt(emotion),
+          tertiary: tertiaryColor.elementAt(emotion)),
+      //primaryColor: ,
+      appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: secondary.elementAt(emotion)),
+          titleTextStyle: TextStyle(color: tertiaryColor.elementAt(emotion))),
 
-        textTheme: GoogleFonts.mulishTextTheme()
-            .apply(bodyColor: textColor.elementAt(emotion)),
-        backgroundColor: secondary.elementAt(emotion),
-        scaffoldBackgroundColor: secondary.elementAt(emotion),
-        cardColor: secondary.elementAt(emotion),
-        iconTheme: const IconThemeData(color: AppColors.iconDark),
-      );
-    } else {
-      return ThemeData(
-        brightness: Brightness.light,
-        //accentColor: accent[0],
-        //visualDensity: visualDensity,
-        textTheme:
-            GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
-        backgroundColor: Color(0xFF1B1E1F),
-        scaffoldBackgroundColor: Color(0xFF1B1E1F),
-        cardColor: AppColors.cardDark,
-        primaryTextTheme: const TextTheme(
-          headline6: TextStyle(color: AppColors.textDark),
-        ),
-        iconTheme: const IconThemeData(color: AppColors.iconDark),
-      );
-    }
+      textTheme: GoogleFonts.mulishTextTheme()
+          .apply(bodyColor: textColor.elementAt(emotion)),
+      backgroundColor: secondary.elementAt(emotion),
+      scaffoldBackgroundColor: secondary.elementAt(emotion),
+      cardColor: secondary.elementAt(emotion),
+      iconTheme: const IconThemeData(color: AppColors.iconDark),
+    );
   }
 
   Color getEmotionColor(int emotion) {

@@ -1,23 +1,15 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/logInButton.dart';
-import 'package:chat_app/models/user.dart' as localUser;
+
 import 'package:chat_app/views/import_views.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: <String>[
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +60,7 @@ class LoginScreen extends StatelessWidget {
 
   Future<void> _handleSignIn(context) async {
     await Get.put(UserController()).signInUser();
-    Get.put(Expression_theme_controller())
+    Get.put(ExpressionThemeController())
         .changeTheme(Get.put(UserController()).myUser.mood, true);
     Route route = MaterialPageRoute(builder: (context) => HomeScreen());
     Navigator.pushReplacement(context, route);

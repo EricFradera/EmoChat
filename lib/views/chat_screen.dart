@@ -142,8 +142,7 @@ class _Message_Own_Tile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color:
-                      Get.put(Expression_theme_controller()).primary[emotion],
+                  color: Get.put(ExpressionThemeController()).primary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(5),
@@ -187,8 +186,7 @@ class _MessageTile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color:
-                      Get.put(Expression_theme_controller()).primary[emotion],
+                  color: Get.put(ExpressionThemeController()).primary[emotion],
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(30),
@@ -324,6 +322,6 @@ class _TextBarState extends State<_TextBar> {
   }
 
   Color getColor(int mode) {
-    return Get.put(Expression_theme_controller()).primary[mode];
+    return Get.put(ExpressionThemeController()).primary[mode];
   }
 }
