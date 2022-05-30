@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/contact_page.dart';
@@ -43,8 +44,10 @@ class HomeScreen extends StatelessWidget {
             builder: (BuildContext context, String value, _) {
               return Text(
                 pagetitle.value,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Get.put(ExpressionThemeController()).getTextColor()),
               );
             },
           ),

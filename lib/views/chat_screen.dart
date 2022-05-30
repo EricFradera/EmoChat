@@ -142,7 +142,8 @@ class _MessageOwnTile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Get.put(ExpressionThemeController()).primary[emotion],
+                  color: Get.put(ExpressionThemeController())
+                      .getPrimaryColor(emotion),
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(5),
@@ -157,7 +158,12 @@ class _MessageOwnTile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(message),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                      color: Get.put(ExpressionThemeController())
+                          .getTextColor(emotion)),
+                ),
               ),
             ),
           ],
@@ -186,7 +192,8 @@ class _MessageTile extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Get.put(ExpressionThemeController()).primary[emotion],
+                  color: Get.put(ExpressionThemeController())
+                      .getPrimaryColor(emotion),
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(5),
                       topRight: Radius.circular(30),
@@ -201,7 +208,10 @@ class _MessageTile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(message),
+                child: Text(message,
+                    style: TextStyle(
+                        color: Get.put(ExpressionThemeController())
+                            .getTextColor(emotion))),
               ),
             ),
           ],
@@ -323,6 +333,6 @@ class _TextBarState extends State<_TextBar> {
   }
 
   Color getColor(int mode) {
-    return Get.put(ExpressionThemeController()).primary[mode];
+    return Get.put(ExpressionThemeController()).getPrimaryColor(mode);
   }
 }

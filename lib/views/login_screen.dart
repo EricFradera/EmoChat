@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
   Future<void> _handleSignIn(context) async {
     await Get.put(UserController()).signInUser();
     Get.put(ExpressionThemeController())
-        .changeTheme(Get.put(UserController()).myUser.mood, true);
+        .changeTheme(Get.put(UserController()).myUser.mood);
     Route route = MaterialPageRoute(builder: (context) => HomeScreen());
     Navigator.pushReplacement(context, route);
   }

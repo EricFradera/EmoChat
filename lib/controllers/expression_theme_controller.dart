@@ -1,3 +1,4 @@
+import 'package:chat_app/models/expression_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,60 +6,18 @@ import 'package:google_fonts/google_fonts.dart';
 enum ThemeType { neutral, happy, sad, angry, disgust, surprise, fear }
 
 class ExpressionThemeController extends GetxController {
-  final currentMood = ThemeType.neutral;
-  List<Color> primary = const [
-    Color.fromARGB(255, 217, 231, 203),
-    Color.fromARGB(255, 224, 220, 105),
-    Color.fromARGB(255, 204, 205, 229),
-    Color.fromARGB(255, 224, 175, 203),
-    Color.fromARGB(255, 204, 229, 225),
-    Color.fromARGB(255, 226, 199, 150),
-    Color.fromARGB(255, 226, 226, 226)
-  ];
-  List<Color> secondary = const [
-    Color.fromARGB(255, 253, 253, 245),
-    Color.fromARGB(255, 249, 248, 207),
-    Color.fromARGB(255, 245, 245, 252),
-    Color.fromARGB(255, 239, 225, 232),
-    Color.fromARGB(255, 245, 252, 251),
-    Color.fromARGB(255, 247, 233, 205),
-    Color.fromARGB(255, 252, 252, 252),
-  ];
-  List<Color> tertiaryColor = const [
-    Color.fromARGB(255, 85, 98, 76),
-    Color.fromARGB(255, 94, 91, 34),
-    Color.fromARGB(255, 75, 75, 96),
-    Color.fromARGB(255, 91, 60, 79),
-    Color.fromARGB(255, 75, 96, 96),
-    Color.fromARGB(255, 96, 81, 53),
-    Color.fromARGB(255, 96, 96, 96),
-  ];
-  List<Color> textColor = const [
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-    Color.fromARGB(255, 0, 0, 0),
-  ];
-  // NOT NEEDED FOR NOW
+  // THEME DATA /////////////////////////////////////////
+  var currentMood = ThemeType.neutral;
+  final ExpressionTheme _theme = ExpressionTheme();
+  late Rx<ThemeData> current = (ThemeData()).obs;
+  ///////////////////////////////////////////////////////
 
-  final visualDensity = VisualDensity.adaptivePlatformDensity;
-  var current = (ThemeData(
-    brightness: Brightness.light,
-    textTheme: GoogleFonts.mulishTextTheme()
-        .apply(bodyColor: const Color.fromARGB(255, 85, 98, 76)),
-    backgroundColor: const Color.fromARGB(255, 253, 253, 245),
-    scaffoldBackgroundColor: const Color.fromARGB(255, 253, 253, 245),
-    cardColor: const Color.fromARGB(255, 253, 253, 245),
-    primaryTextTheme: const TextTheme(
-      headline6: TextStyle(color: Color.fromARGB(255, 85, 98, 76)),
-    ),
-    iconTheme: const IconThemeData(color: Colors.black),
-  )).obs;
+  ExpressionThemeController() {
+    current = _theme.currentTheme;
+  }
 
-  void changeTheme(int emotion, bool light) {
+  void changeTheme(int emotion) {
+    currentMood = ThemeType.values[emotion];
     current.value = buildTheme(emotion);
     update();
   }
@@ -67,24 +26,63 @@ class ExpressionThemeController extends GetxController {
     return ThemeData(
       brightness: Brightness.light,
       colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: primary.elementAt(emotion),
-          secondary: secondary.elementAt(emotion),
-          tertiary: tertiaryColor.elementAt(emotion)),
-      //primaryColor: ,
+          primary: _theme.primary[emotion],
+          secondary: _theme.secondary[emotion],
+          tertiary: _theme.tertiaryColor[emotion]),
       appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: secondary.elementAt(emotion)),
-          titleTextStyle: TextStyle(color: tertiaryColor.elementAt(emotion))),
-
+          iconTheme: IconThemeData(color: _theme.secondary[emotion]),
+          titleTextStyle: TextStyle(color: _theme.tertiaryColor[emotion])),
       textTheme: GoogleFonts.mulishTextTheme()
-          .apply(bodyColor: textColor.elementAt(emotion)),
-      backgroundColor: secondary.elementAt(emotion),
-      scaffoldBackgroundColor: secondary.elementAt(emotion),
-      cardColor: secondary.elementAt(emotion),
+          .apply(bodyColor: _theme.textColor[emotion]),
+      backgroundColor: _theme.secondary[emotion],
+      scaffoldBackgroundColor: _theme.secondary[emotion],
+      cardColor: _theme.secondary[emotion],
       iconTheme: const IconThemeData(color: Colors.black),
     );
   }
 
-  Color getEmotionColor(int emotion) {
-    return primary[emotion];
+// GETTERS AND SETTERS
+  Color getPrimaryColor([int? emotion]) {
+    if (emotion == null) {
+      return _theme.primary[currentMood.index];
+    }
+    return _theme.primary[emotion];
+  }
+
+  Color getSecondaryColor([int? emotion]) {
+    if (emotion == null) {
+      return _theme.secondary[currentMood.index];
+    }
+    return _theme.secondary[emotion];
+  }
+
+  Color getTertiaryColor([int? emotion]) {
+    if (emotion == null) {
+      return _theme.tertiaryColor[currentMood.index];
+    }
+    return _theme.tertiaryColor[emotion];
+  }
+
+  Color getTextColor([int? emotion]) {
+    if (emotion == null) {
+      return _theme.textColor[currentMood.index];
+    }
+    return _theme.textColor[emotion];
+  }
+
+  void setPrimaryColor(Color newColor, int emotion) {
+    _theme.primary[emotion] = newColor;
+  }
+
+  void setSecondaryColor(Color newColor, int emotion) {
+    _theme.secondary[emotion] = newColor;
+  }
+
+  void setTertiaryColor(Color newColor, int emotion) {
+    _theme.tertiaryColor[emotion] = newColor;
+  }
+
+  void setTextColor(Color newColor, int emotion) {
+    _theme.textColor[emotion] = newColor;
   }
 }

@@ -25,67 +25,59 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(1, true);
+                          Get.put(ExpressionThemeController()).changeTheme(1);
                           Get.put(UserController()).changeMood(1);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(1)),
+                                .getPrimaryColor(1)),
                         child: Text(
                           "Happy",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(1)),
+                                  .getTertiaryColor(1)),
                         )),
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(2, true);
+                          Get.put(ExpressionThemeController()).changeTheme(2);
                           Get.put(UserController()).changeMood(2);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(2)),
+                                .getPrimaryColor(2)),
                         child: Text(
                           "Sad",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(2)),
+                                  .getTertiaryColor(2)),
                         )),
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(3, true);
+                          Get.put(ExpressionThemeController()).changeTheme(3);
                           Get.put(UserController()).changeMood(3);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(3)),
+                                .getPrimaryColor(3)),
                         child: Text(
                           "Scared",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(3)),
+                                  .getTertiaryColor(3)),
                         )),
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(4, true);
+                          Get.put(ExpressionThemeController()).changeTheme(4);
                           Get.put(UserController()).changeMood(4);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(4)),
+                                .getPrimaryColor(4)),
                         child: Text(
                           "Disgust",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(4)),
+                                  .getTertiaryColor(4)),
                         )),
                   ],
                 ),
@@ -94,49 +86,43 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(5, true);
+                          Get.put(ExpressionThemeController()).changeTheme(5);
                           Get.put(UserController()).changeMood(5);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(5)),
+                                .getPrimaryColor(5)),
                         child: Text(
                           "Rage",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(5)),
+                                  .getTertiaryColor(5)),
                         )),
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(6, true);
+                          Get.put(ExpressionThemeController()).changeTheme(6);
                           Get.put(UserController()).changeMood(6);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(6)),
+                                .getPrimaryColor(6)),
                         child: Text("Surprise",
                             style: TextStyle(
                                 color: Get.put(ExpressionThemeController())
-                                    .tertiaryColor
-                                    .elementAt(6)))),
+                                    .getTertiaryColor(6)))),
                     ElevatedButton(
                         onPressed: () {
-                          Get.put(ExpressionThemeController())
-                              .changeTheme(0, true);
+                          Get.put(ExpressionThemeController()).changeTheme(0);
                           Get.put(UserController()).changeMood(0);
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Get.put(ExpressionThemeController())
-                                .getEmotionColor(0)),
+                                .getPrimaryColor(0)),
                         child: Text(
                           "Neutral",
                           style: TextStyle(
                               color: Get.put(ExpressionThemeController())
-                                  .tertiaryColor
-                                  .elementAt(6)),
+                                  .getTertiaryColor(6)),
                         )),
                   ],
                 )

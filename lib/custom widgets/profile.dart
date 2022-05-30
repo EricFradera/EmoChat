@@ -23,17 +23,27 @@ class Profile extends StatelessWidget {
   //final Color color;
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: (radius + (radius * 0.25)),
-      backgroundColor: getCircleColor(),
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(100)),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(0, 0),
+                blurRadius: 2,
+                color: Get.put(ExpressionThemeController()).getTertiaryColor())
+          ]),
       child: CircleAvatar(
-        radius: radius,
-        backgroundImage: CachedNetworkImageProvider(url),
+        radius: (radius + (radius * 0.25)),
+        backgroundColor: getCircleColor(),
+        child: CircleAvatar(
+          radius: radius,
+          backgroundImage: CachedNetworkImageProvider(url),
+        ),
       ),
     );
   }
 
   Color getCircleColor() {
-    return Get.put(ExpressionThemeController()).getEmotionColor(mood);
+    return Get.put(ExpressionThemeController()).getPrimaryColor(mood);
   }
 }
