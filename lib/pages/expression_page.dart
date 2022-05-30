@@ -98,7 +98,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                 style: ElevatedButton.styleFrom(
                     primary: Get.put(ExpressionThemeController())
                         .getPrimaryColor(emotion)),
-                onPressed: () {},
+                onPressed: () => pageController.saveData(emotion),
                 child: Text("Save preferences",
                     style: TextStyle(
                         color: Get.put(ExpressionThemeController())
@@ -127,7 +127,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
               decoration: BoxDecoration(
                   color: const Color.fromARGB(177, 255, 255, 255),
                   borderRadius: BorderRadius.circular(12)),
-              child: colorSelection()),
+              child: colorSelection(emotion)),
         ),
         const Text(
           "Font Selector",
@@ -141,7 +141,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
               decoration: BoxDecoration(
                   color: const Color.fromARGB(177, 255, 255, 255),
                   borderRadius: BorderRadius.circular(12)),
-              child: fontSelector()),
+              child: fontSelector(emotion)),
         ),
         const Text(
           "Emoji Selector",
@@ -155,7 +155,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
               decoration: BoxDecoration(
                   color: const Color.fromARGB(177, 255, 255, 255),
                   borderRadius: BorderRadius.circular(12)),
-              child: emojiSelector()),
+              child: emojiSelector(emotion)),
         )
       ],
     );
@@ -167,7 +167,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
     );
   }
 
-  Widget colorSelection() {
+  Widget colorSelection(int emotion) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
@@ -178,7 +178,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           itemBuilder: (BuildContext context, index) {
             return InkWell(
                 customBorder: const CircleBorder(),
-                onTap: (() {}),
+                onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Container(
@@ -191,7 +191,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
     );
   }
 
-  Widget fontSelector() {
+  Widget fontSelector(int emotion) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: pageController.getLengthFonts(),
@@ -199,13 +199,14 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           return InkWell(
             onTap: (() {}),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  pageController.getFonts(index),
-                  style: const TextStyle(fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4, bottom: 4),
+                  child: Text(
+                    pageController.getFonts(index),
+                    style: pageController.getFont(index),
+                  ),
                 ),
-                Text("Texto de ejemplo", style: pageController.getFont(index)),
                 const Divider()
               ],
             ),
@@ -213,7 +214,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
         });
   }
 
-  Widget emojiSelector() {
+  Widget emojiSelector(int emotion) {
     return GridView.builder(
         shrinkWrap: true,
         gridDelegate:

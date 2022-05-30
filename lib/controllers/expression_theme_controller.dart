@@ -18,6 +18,10 @@ class ExpressionThemeController extends GetxController {
 
   void changeTheme(int emotion) {
     currentMood = ThemeType.values[emotion];
+    updateTheme(emotion);
+  }
+
+  void updateTheme(int emotion) {
     current.value = buildTheme(emotion);
     update();
   }
@@ -91,6 +95,8 @@ class ExpressionThemeController extends GetxController {
 
   void setPrimaryColor(Color newColor, int emotion) {
     _theme.primary[emotion] = newColor;
+    update();
+    updateTheme(emotion);
   }
 
   void setSecondaryColor(Color newColor, int emotion) {
@@ -115,5 +121,9 @@ class ExpressionThemeController extends GetxController {
 
   void setItalic(bool isItalic, int emotion) {
     _theme.isItalic[emotion] = isItalic;
+  }
+
+  Map<String, dynamic> getJson(int emotion, String uid) {
+    return _theme.toJson(emotion, uid);
   }
 }

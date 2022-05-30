@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ExpressionTheme {
   final List<Color> primary = const [
-    Color.fromARGB(255, 217, 231, 203),
+    Color.fromRGBO(217, 231, 203, 1),
     Color.fromARGB(255, 224, 220, 105),
     Color.fromARGB(255, 204, 205, 229),
     Color.fromARGB(255, 224, 175, 203),
@@ -76,4 +76,17 @@ class ExpressionTheme {
     ),
     iconTheme: const IconThemeData(color: Colors.black),
   )).obs;
+
+  Map<String, dynamic> toJson(int emotion, String uid) => {
+        'uid': uid,
+        'emotion': emotion,
+        'primary': primary[emotion].value,
+        'secondary': secondary[emotion].value,
+        'tertiaryColor': tertiaryColor[emotion].value,
+        'textColor': textColor[emotion].value,
+        'emojiExpression': emojiExpression[emotion],
+        'textFont': textFont[emotion],
+        'isItalic': isItalic[emotion],
+        'isBold': isBold[emotion]
+      };
 }
