@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/destination_user.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
@@ -67,7 +68,7 @@ class _AppBarTitle extends StatelessWidget {
             Text(
               messageData.senderName,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
         ))
@@ -161,11 +162,23 @@ class _MessageOwnTile extends StatelessWidget {
                 child: Text(
                   message,
                   style: TextStyle(
-                      color: Get.put(ExpressionThemeController())
-                          .getTextColor(emotion)),
+                          color: Get.put(ExpressionThemeController())
+                              .getTextColor(emotion))
+                      .merge(Get.put(ExpressionThemeController())
+                          .getTextStyle(emotion)),
                 ),
               ),
             ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: Center(
+                child: Text(
+                  Get.put(ExpressionThemeController()).getEmoji(emotion),
+                  style: const TextStyle(fontSize: 25),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -210,10 +223,22 @@ class _MessageTile extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Text(message,
                     style: TextStyle(
-                        color: Get.put(ExpressionThemeController())
-                            .getTextColor(emotion))),
+                            color: Get.put(ExpressionThemeController())
+                                .getTextColor(emotion))
+                        .merge(Get.put(ExpressionThemeController())
+                            .getTextStyle(emotion))),
               ),
             ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: Center(
+                child: Text(
+                  Get.put(ExpressionThemeController()).getEmoji(emotion),
+                  style: const TextStyle(fontSize: 25),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -248,21 +273,54 @@ class _TextBarState extends State<_TextBar> {
           top: false,
           child: Column(
             children: [
-              Container(
-                height: 40,
-                width: double.infinity,
-                //decoration: BoxDecoration(color: Colors.amber),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    emotes("🙂", emotionVal.neutral.index),
-                    emotes("😄", emotionVal.happy.index),
-                    emotes("😔", emotionVal.sad.index),
-                    emotes("😠", emotionVal.angry.index),
-                    emotes("🤢", emotionVal.disgust.index),
-                    emotes("😮", emotionVal.surprise.index),
-                    emotes("😨", emotionVal.fear.index)
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Get.put(ExpressionThemeController())
+                          .getPrimaryColor(emotionMode),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 3),
+                            blurRadius: 4,
+                            color: Colors.black.withOpacity(0.2))
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.neutral.index),
+                          emotionVal.neutral.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.happy.index),
+                          emotionVal.happy.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.sad.index),
+                          emotionVal.sad.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.angry.index),
+                          emotionVal.angry.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.disgust.index),
+                          emotionVal.disgust.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.surprise.index),
+                          emotionVal.surprise.index),
+                      emotes(
+                          Get.put(ExpressionThemeController())
+                              .getEmoji(emotionVal.fear.index),
+                          emotionVal.fear.index)
+                    ],
+                  ),
                 ),
               ),
               Row(
@@ -270,7 +328,8 @@ class _TextBarState extends State<_TextBar> {
                   Expanded(
                       child: Container(
                     decoration: BoxDecoration(
-                        color: getColor(emotionMode),
+                        color: Get.put(ExpressionThemeController())
+                            .getPrimaryColor(emotionMode),
                         borderRadius: BorderRadius.circular(40),
                         boxShadow: [
                           BoxShadow(
@@ -282,8 +341,9 @@ class _TextBarState extends State<_TextBar> {
                       padding: const EdgeInsets.only(left: 16),
                       child: TextField(
                         controller: messageTextController,
-                        style:
-                            const TextStyle().merge(getTextStyle(emotionMode)),
+                        style: const TextStyle().merge(
+                            Get.put(ExpressionThemeController())
+                                .getTextStyle(emotionMode)),
                         decoration: const InputDecoration(
                             hintText: "Type here", border: InputBorder.none),
                       ),
@@ -292,7 +352,8 @@ class _TextBarState extends State<_TextBar> {
                   Padding(
                     padding: const EdgeInsets.only(left: 12, right: 4),
                     child: ActionButton(
-                      color: getColor(emotionMode),
+                      color: Get.put(ExpressionThemeController())
+                          .getPrimaryColor(emotionMode),
                       icon: Icons.send,
                       onPressed: () {
                         Get.put(UserController()).sendMessage(
@@ -311,28 +372,23 @@ class _TextBarState extends State<_TextBar> {
 
   Widget emotes(String emoji, int newMode) {
     return InkWell(
+      customBorder: const CircleBorder(),
       onTap: () => setState(() {
         emotionMode = newMode;
       }),
-      child: Text(
-        emoji,
-        style: const TextStyle(fontSize: 30),
+      child: Container(
+        decoration: BoxDecoration(
+            color:
+                Get.put(ExpressionThemeController()).getPrimaryColor(newMode),
+            borderRadius: BorderRadius.circular(50)),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            emoji,
+            style: const TextStyle(fontSize: 30),
+          ),
+        ),
       ),
     );
-  }
-
-  TextStyle getTextStyle(int mode) {
-    switch (mode) {
-      case 1:
-        return bold;
-      case 2:
-        return italic;
-      default:
-        return const TextStyle(fontSize: 14);
-    }
-  }
-
-  Color getColor(int mode) {
-    return Get.put(ExpressionThemeController()).getPrimaryColor(mode);
   }
 }

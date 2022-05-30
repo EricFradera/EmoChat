@@ -70,6 +70,25 @@ class ExpressionThemeController extends GetxController {
     return _theme.textColor[emotion];
   }
 
+  String getEmoji([int? emotion]) {
+    if (emotion == null) {
+      return _theme.emojiExpression[currentMood.index];
+    }
+    return _theme.emojiExpression[emotion];
+  }
+
+  TextStyle getTextStyle([int? emotion]) {
+    if (emotion == null) {
+      return const TextStyle();
+    }
+    return GoogleFonts.getFont(_theme.textFont[emotion],
+        fontWeight:
+            (_theme.isBold[emotion] ? FontWeight.bold : FontWeight.normal),
+        fontStyle:
+            (_theme.isItalic[emotion] ? FontStyle.italic : FontStyle.normal),
+        fontSize: 20);
+  }
+
   void setPrimaryColor(Color newColor, int emotion) {
     _theme.primary[emotion] = newColor;
   }
@@ -84,5 +103,17 @@ class ExpressionThemeController extends GetxController {
 
   void setTextColor(Color newColor, int emotion) {
     _theme.textColor[emotion] = newColor;
+  }
+
+  void setEmoji(String emoji, int emotion) {
+    _theme.emojiExpression[emotion] = emoji;
+  }
+
+  void setBold(bool isBold, int emotion) {
+    _theme.isBold[emotion] = isBold;
+  }
+
+  void setItalic(bool isItalic, int emotion) {
+    _theme.isItalic[emotion] = isItalic;
   }
 }

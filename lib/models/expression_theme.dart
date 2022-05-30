@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +30,7 @@ class ExpressionTheme {
     Color.fromARGB(255, 96, 81, 53),
     Color.fromARGB(255, 96, 96, 96),
   ];
-  //TODO
+
   final List<Color> textColor = const [
     Color.fromARGB(255, 47, 75, 30),
     Color.fromARGB(255, 93, 93, 27),
@@ -42,6 +40,27 @@ class ExpressionTheme {
     Color.fromARGB(255, 84, 67, 20),
     Color.fromARGB(255, 55, 55, 55),
   ];
+  final List<String> emojiExpression = [
+    "🙂",
+    "😄",
+    "😔",
+    "😠",
+    "🤢",
+    "😮",
+    "😨"
+  ];
+
+  final List<String> textFont = [
+    "Roboto",
+    "Lobster Two",
+    "Shadows Into Light",
+    "Teko",
+    "Annie Use Your Telescope",
+    "Staatliches",
+    "Odibee Sans"
+  ];
+  final List<bool> isItalic = [false, true, false, true, false, true, true];
+  final List<bool> isBold = [false, false, true, false, true, false, false];
 
   ExpressionTheme();
 

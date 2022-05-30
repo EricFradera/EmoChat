@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                 pagetitle.value,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 22,
                     color: Get.put(ExpressionThemeController()).getTextColor()),
               );
             },
