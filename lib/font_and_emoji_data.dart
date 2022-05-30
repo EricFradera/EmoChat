@@ -1,5 +1,23 @@
+import 'package:flutter/material.dart';
+
 class FontAndEmojiData {
-  final List<String> fonts = [
+  final List<Color> allColors = const [
+    Color.fromARGB(255, 229, 204, 204),
+    Color.fromARGB(255, 229, 218, 204),
+    Color.fromARGB(255, 229, 228, 204),
+    Color.fromARGB(255, 204, 229, 212),
+    Color.fromARGB(255, 224, 170, 221),
+    Color.fromARGB(255, 204, 229, 225),
+    Color.fromARGB(255, 216, 204, 229),
+    Color.fromARGB(255, 224, 175, 203),
+    Color.fromARGB(255, 226, 226, 226),
+    Color.fromARGB(255, 217, 231, 203),
+    Color.fromARGB(255, 226, 199, 150),
+    Color.fromARGB(255, 224, 220, 105),
+    Color.fromARGB(255, 160, 154, 226),
+    Color.fromARGB(255, 204, 204, 204),
+  ];
+  final List<String> allFonts = const [
     "ABeeZee",
     "Abel",
     "Abril Fatface",
@@ -685,7 +703,7 @@ class FontAndEmojiData {
     "Yesteryear",
     "Zeyada"
   ];
-  final List<String> allEmojis = [
+  final List<String> allEmojis = const [
     "😀",
     "😃",
     "😄",

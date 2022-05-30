@@ -1,6 +1,4 @@
-import 'package:chat_app/pages/expression_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../font_and_emoji_data.dart';
 
@@ -32,7 +30,7 @@ class TestScreen extends StatelessWidget {
           );
         });
   }
-
+/*
   Widget getFont() {
     return ListView.builder(
         itemCount: data.fonts.length,
@@ -61,5 +59,5 @@ class TestScreen extends StatelessWidget {
       print("thisNotExist " + data.fonts[index]);
     }
     return TextStyle();
-  }
+  }*/
 }
