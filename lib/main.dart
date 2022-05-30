@@ -1,5 +1,6 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/views/login_screen.dart';
+import 'package:chat_app/views/test_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false, //turn on for debug flag
           theme: Get.put(ExpressionThemeController()).current.value,
           title: 'Emotive Chat',
-          home: const LoginScreen(),
+          home: TestScreen(),
         ));
   }
 }
