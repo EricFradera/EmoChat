@@ -37,7 +37,8 @@ class ExpressionThemeController extends GetxController {
           secondary: _theme.secondary[emotion],
           tertiary: _theme.tertiaryColor[emotion]),
       appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: _theme.secondary[emotion]),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(173, 255, 255, 255)),
           titleTextStyle: TextStyle(color: _theme.tertiaryColor[emotion])),
       textTheme: GoogleFonts.mulishTextTheme()
           .apply(bodyColor: _theme.textColor[emotion]),

@@ -9,32 +9,28 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ExpressionPageController {
   final FontAndEmojiData _data = FontAndEmojiData();
-  final List<Color> _newColor = [];
-  final List<String> _newFont = [];
-  final List<String> _newEmoji = [];
-  final List<bool> _newBold = [];
-  final List<bool> _newItalic = [];
+  final List<Color> newColorP = [];
+  final List<Color> newColorS = [];
+  final List<Color> newColorT = [];
+  final List<Color> newTextColor = [];
+  final List<String> newFont = [];
+  final List<String> newEmoji = [];
+  final List<bool> newBold = [];
+  final List<bool> newItalic = [];
 
-  List<String> testFont = [];
-  List<String> testEmoji = [];
-  List<bool> testBold = [];
-  List<bool> testItalic = [];
-  List<Color> testColor = [];
   ExpressionPageController() {
     for (int i = 0; i < 7; i++) {
-      _newColor.add(Get.put(ExpressionThemeController()).getPrimaryColor(i));
-      _newFont.add(Get.put(ExpressionThemeController()).getFontName(i));
-      _newEmoji.add(Get.put(ExpressionThemeController()).getEmoji(i));
-      _newBold.add(Get.put(ExpressionThemeController()).getBold(i));
-      _newItalic.add(Get.put(ExpressionThemeController()).getItalic(i));
-    }
-    testFont = _newFont;
-    testEmoji = _newEmoji;
-    testBold = _newBold;
-    testItalic = _newItalic;
-    testColor = _newColor;
-  }
+      newColorP.add(Get.put(ExpressionThemeController()).getPrimaryColor(i));
+      newColorS.add(Get.put(ExpressionThemeController()).getSecondaryColor(i));
+      newColorT.add(Get.put(ExpressionThemeController()).getTertiaryColor(i));
+      newTextColor.add(Get.put(ExpressionThemeController()).getTextColor(i));
 
+      newFont.add(Get.put(ExpressionThemeController()).getFontName(i));
+      newEmoji.add(Get.put(ExpressionThemeController()).getEmoji(i));
+      newBold.add(Get.put(ExpressionThemeController()).getBold(i));
+      newItalic.add(Get.put(ExpressionThemeController()).getItalic(i));
+    }
+  }
   String getEmojis(int index) {
     return _data.allEmojis[index];
   }
@@ -43,7 +39,19 @@ class ExpressionPageController {
     return _data.allEmojis.length;
   }
 
-  String getFonts(int index) {
+  Color getColorP(int index) {
+    return _data.allPrimary[index];
+  }
+
+  Color getColorS(int index) {
+    return _data.allSecondary[index];
+  }
+
+  Color getColorT(int index) {
+    return _data.allTertiaryColor[index];
+  }
+
+  String getStringFont(int index) {
     try {
       GoogleFonts.getFont(_data.allFonts[index]);
     } catch (e) {
@@ -52,61 +60,57 @@ class ExpressionPageController {
     return _data.allFonts[index];
   }
 
-  Color getColor(int index) {
-    return _data.allColors[index];
-  }
-
-  int getLengthColors() {
-    return _data.allColors.length;
-  }
-
-  int getLengthFonts() {
-    return _data.allFonts.length;
-  }
-
-  TextStyle getFont(int index) {
+  TextStyle getStyleFonts(int index) {
     try {
       return GoogleFonts.getFont(_data.allFonts[index], fontSize: 20);
     } catch (e) {}
     return const TextStyle();
   }
 
+  int getLengthColors() {
+    return _data.allPrimary.length;
+  }
+
+  int getLengthFonts() {
+    return _data.allFonts.length;
+  }
+
   void setNewColor(int emotion, int colorIndex) {
-    _newColor[emotion] = _data.allColors[colorIndex];
+    newColorP[emotion] = _data.allPrimary[colorIndex];
+    newColorS[emotion] = _data.allSecondary[colorIndex];
+    newColorT[emotion] = _data.allTertiaryColor[colorIndex];
+    newTextColor[emotion] = _data.allTextColor[colorIndex];
   }
 
   void setNewFont(int emotion, int index) {
-    _newFont[emotion] = _data.allFonts[index];
+    newFont[emotion] = _data.allFonts[index];
   }
 
   void setNewEmoji(int emotion, int index) {
-    _newEmoji[emotion] = _data.allEmojis[index];
+    newEmoji[emotion] = _data.allEmojis[index];
   }
 
   Future<void> saveData(int emotion) async {
     Get.put(ExpressionThemeController())
-        .setPrimaryColor(_newColor[emotion], emotion);
-    Get.put(ExpressionThemeController()).setEmoji(_newEmoji[emotion], emotion);
-    Get.put(ExpressionThemeController()).setFont(_newFont[emotion], emotion);
-    Get.put(ExpressionThemeController()).setBold(_newBold[emotion], emotion);
+        .setPrimaryColor(newColorP[emotion], emotion);
     Get.put(ExpressionThemeController())
-        .setItalic(_newItalic[emotion], emotion);
+        .setSecondaryColor(newColorS[emotion], emotion);
+    Get.put(ExpressionThemeController())
+        .setTertiaryColor(newColorT[emotion], emotion);
+    Get.put(ExpressionThemeController())
+        .setTextColor(newTextColor[emotion], emotion);
+    Get.put(ExpressionThemeController()).setEmoji(newEmoji[emotion], emotion);
+    Get.put(ExpressionThemeController()).setFont(newFont[emotion], emotion);
+    Get.put(ExpressionThemeController()).setBold(newBold[emotion], emotion);
+    Get.put(ExpressionThemeController()).setItalic(newItalic[emotion], emotion);
     await Get.put(UserController()).updateTheme(emotion);
   }
 
   void setBold(int emotion) {
-    _newBold[emotion] = !_newBold[emotion];
-  }
-
-  bool getBold(int emotion) {
-    return _newBold[emotion];
-  }
-
-  bool getItalic(int emotion) {
-    return _newItalic[emotion];
+    newBold[emotion] = !newBold[emotion];
   }
 
   void setItalic(int emotion) {
-    _newItalic[emotion] = !_newItalic[emotion];
+    newItalic[emotion] = !newItalic[emotion];
   }
 }

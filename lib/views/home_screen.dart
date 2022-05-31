@@ -64,9 +64,6 @@ class HomeScreen extends StatelessWidget {
                   }),
                   icon: const Icon(Icons.exit_to_app)),
             ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.switch_access_shortcut))
           ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,
@@ -196,7 +193,7 @@ class _NavigationBarItem extends StatelessWidget {
               size: 20,
               color: isSelected
                   ? Theme.of(context).colorScheme.tertiary
-                  : Theme.of(context).colorScheme.secondary,
+                  : const Color.fromARGB(173, 255, 255, 255),
             ),
             const SizedBox(
               height: 8,

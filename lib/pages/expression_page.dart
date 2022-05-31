@@ -73,7 +73,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: Text(
-                item.headerName + " " + pageController.testEmoji[item.emotion],
+                item.headerName + " " + pageController.newEmoji[item.emotion],
                 style: const TextStyle(fontSize: 18),
               ), //Feeling name
             );
@@ -114,8 +114,14 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           child: Container(
               alignment: Alignment.topLeft,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(177, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(12)),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 0),
+                        blurRadius: 3,
+                        color: Theme.of(context).colorScheme.tertiary)
+                  ]),
               child: colorSelection(emotion)),
         ),
         const Text(
@@ -127,7 +133,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           child: Container(
               alignment: Alignment.topLeft,
               decoration: BoxDecoration(
-                  color: pageController.testColor[emotion],
+                  color: pageController.newColorP[emotion],
                   borderRadius: BorderRadius.circular(12)),
               child: textPreview(emotion)),
         ),
@@ -142,8 +148,14 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
               alignment: Alignment.topLeft,
               height: 300,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(177, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(12)),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 0),
+                        blurRadius: 3,
+                        color: Theme.of(context).colorScheme.tertiary)
+                  ]),
               child: fontSelector(emotion)),
         ),
         const Text(
@@ -156,8 +168,14 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
               alignment: Alignment.topLeft,
               height: 300,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(177, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(12)),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 0),
+                        blurRadius: 3,
+                        color: Theme.of(context).colorScheme.tertiary)
+                  ]),
               child: emojiSelector(emotion)),
         )
       ],
@@ -175,10 +193,8 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                     primary: Get.put(ExpressionThemeController())
                         .getPrimaryColor(emotion)),
                 onPressed: () {
-                  pageController.setBold(emotion);
                   setState(() {
-                    pageController.testBold[emotion] =
-                        pageController.getBold(emotion);
+                    pageController.setBold(emotion);
                   });
                 },
                 child: Text("Bold",
@@ -192,10 +208,8 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                     primary: Get.put(ExpressionThemeController())
                         .getPrimaryColor(emotion)),
                 onPressed: () {
-                  pageController.setItalic(emotion);
                   setState(() {
-                    pageController.testItalic[emotion] =
-                        pageController.getItalic(emotion);
+                    pageController.setItalic(emotion);
                   });
                 },
                 child: Text("Italic",
@@ -211,22 +225,27 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
       children: [
         SizedBox(
           width: 300,
-          child: TextField(
-            decoration: const InputDecoration(labelText: "Type here"),
-            style: const TextStyle().merge(GoogleFonts.getFont(
-                pageController.testFont[emotion],
-                fontWeight: pageController.testBold[emotion]
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-                fontStyle: pageController.testItalic[emotion]
-                    ? FontStyle.italic
-                    : FontStyle.normal)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: TextField(
+                decoration: const InputDecoration(labelText: "Type here"),
+                style: const TextStyle().merge(GoogleFonts.getFont(
+                    pageController.newFont[emotion],
+                    fontWeight: pageController.newBold[emotion]
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    fontStyle: pageController.newItalic[emotion]
+                        ? FontStyle.italic
+                        : FontStyle.normal)),
+              ),
+            ),
           ),
         ),
         SizedBox(
             width: 40,
             child: Text(
-              pageController.testEmoji[emotion],
+              pageController.newEmoji[emotion],
               style: const TextStyle(fontSize: 25),
             ))
       ],
@@ -239,27 +258,54 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
       child: GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 7),
+              crossAxisCount: 6),
           itemCount: pageController.getLengthColors(),
           itemBuilder: (BuildContext context, index) {
             return InkWell(
                 customBorder: const CircleBorder(),
                 onTap: () {
-                  pageController.setNewColor(emotion, index);
                   setState(() {
-                    pageController.testColor[emotion] =
-                        pageController.getColor(index);
+                    pageController.setNewColor(emotion, index);
                   });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: pageController.getColor(index),
-                        borderRadius: BorderRadius.circular(30)),
-                  ),
-                ));
+                child: colorButton(index));
           }),
+    );
+  }
+
+  Padding colorButton(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            border:
+                Border.all(color: pageController.getColorT(index), width: 2)),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: pageController.getColorP(index),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100)),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: pageController.getColorS(index),
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100)),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -270,10 +316,8 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              pageController.setNewFont(emotion, index);
               setState(() {
-                pageController.testFont[emotion] =
-                    pageController.getFonts(index);
+                pageController.setNewFont(emotion, index);
               });
             },
             child: Column(
@@ -281,8 +325,8 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                 Padding(
                   padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: Text(
-                    pageController.getFonts(index),
-                    style: pageController.getFont(index),
+                    pageController.getStringFont(index),
+                    style: pageController.getStyleFonts(index),
                   ),
                 ),
                 const Divider()
@@ -301,10 +345,8 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
         itemBuilder: (BuildContext context, index) {
           return InkWell(
             onTap: () {
-              pageController.setNewEmoji(emotion, index);
               setState(() {
-                pageController.testEmoji[emotion] =
-                    pageController.getEmojis(index);
+                pageController.setNewEmoji(emotion, index);
               });
             },
             child: Center(

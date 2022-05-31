@@ -13,7 +13,7 @@ class LogInButton extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 217, 231, 203),
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
@@ -28,7 +28,11 @@ class LogInButton extends StatelessWidget {
             "Log In with Google",
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
-                letterSpacing: 0.5, fontSize: 20, fontWeight: FontWeight.w500),
+              color: Theme.of(context).colorScheme.tertiary,
+              letterSpacing: 0.5,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
