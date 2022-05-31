@@ -19,6 +19,7 @@ class ExpressionPageController {
   List<String> testEmoji = [];
   List<bool> testBold = [];
   List<bool> testItalic = [];
+  List<Color> testColor = [];
   ExpressionPageController() {
     for (int i = 0; i < 7; i++) {
       _newColor.add(Get.put(ExpressionThemeController()).getPrimaryColor(i));
@@ -31,6 +32,7 @@ class ExpressionPageController {
     testEmoji = _newEmoji;
     testBold = _newBold;
     testItalic = _newItalic;
+    testColor = _newColor;
   }
 
   String getEmojis(int index) {

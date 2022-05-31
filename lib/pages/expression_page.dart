@@ -127,7 +127,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           child: Container(
               alignment: Alignment.topLeft,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(177, 255, 255, 255),
+                  color: pageController.testColor[emotion],
                   borderRadius: BorderRadius.circular(12)),
               child: textPreview(emotion)),
         ),
@@ -244,7 +244,13 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           itemBuilder: (BuildContext context, index) {
             return InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () => pageController.setNewColor(emotion, index),
+                onTap: () {
+                  pageController.setNewColor(emotion, index);
+                  setState(() {
+                    pageController.testColor[emotion] =
+                        pageController.getColor(index);
+                  });
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Container(

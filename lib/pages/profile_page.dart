@@ -17,7 +17,8 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             _responsiveProfile(),
-            const Text("Current emotion is"),
+            Text("Current emotion is " +
+                Get.put(ExpressionThemeController()).getEmotion()),
             Column(
               children: [
                 Row(

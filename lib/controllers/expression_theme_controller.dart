@@ -23,7 +23,9 @@ class ExpressionThemeController extends GetxController {
   }
 
   void updateTheme(int emotion) {
-    current.value = buildTheme(emotion);
+    if (currentMood.index == emotion) {
+      current.value = buildTheme(emotion);
+    }
     update();
   }
 
@@ -156,5 +158,26 @@ class ExpressionThemeController extends GetxController {
 
   void setJson(int emotion, Map<String, dynamic> json) {
     _theme.fromJson(json);
+  }
+
+  String getEmotion() {
+    switch (currentMood.index) {
+      case 0:
+        return "Neutral";
+      case 1:
+        return "happy";
+      case 2:
+        return "sad";
+      case 3:
+        return "angry";
+      case 4:
+        return "disgust";
+      case 5:
+        return "surprise";
+      case 6:
+        return "fear";
+      default:
+        return "not defined";
+    }
   }
 }
