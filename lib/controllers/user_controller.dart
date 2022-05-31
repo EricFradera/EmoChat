@@ -146,11 +146,12 @@ class UserController extends GetxController {
 
   Future<void> createTheme() async {
     for (int i = 0; i < 7; i++) {
-      final query = await getTheme(i);
-      if (query.docs.isEmpty) {
+      var query = await getTheme(i);
+      while (query.docs.isEmpty) {
         db
             .collection("userThemes")
             .add(Get.put(ExpressionThemeController()).getJson(i, myUser.uid));
+        query = await getTheme(i);
       }
     }
   }
@@ -161,13 +162,15 @@ class UserController extends GetxController {
         .where('uid', isEqualTo: myUser.uid)
         .where("emotion", isEqualTo: index)
         .get();
-    themeDocRef[index] = query.docs.single.reference.path;
+    if (query.docs.isNotEmpty) {
+      themeDocRef[index] = query.docs.single.reference.id;
+    }
     update();
     return query;
   }
 
   Future<void> updateTheme(int emotion) async {
-    db.collection("userThemes").doc(themeDocRef[emotion]).update(
+    await db.collection("userThemes").doc(themeDocRef[emotion]).update(
         Get.put(ExpressionThemeController()).getJson(emotion, myUser.uid));
   }
 }

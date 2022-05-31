@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:chat_app/controllers/expression_theme_controller.dart';
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/font_and_emoji_data.dart';
 import 'package:flutter/src/painting/text_style.dart';
 import 'package:get/get.dart';
@@ -8,11 +9,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ExpressionPageController {
   final FontAndEmojiData _data = FontAndEmojiData();
-
-  List<Color> _newColor = [];
-  List<String> _newFont = [];
-  List<String> _newEmoji = [];
-  ExpressionPageController();
+  final List<Color> _newColor = [];
+  final List<String> _newFont = [];
+  final List<String> _newEmoji = [];
+  List<String> testFont = [];
+  List<String> testEmoji = [];
+  ExpressionPageController() {
+    for (int i = 0; i < 7; i++) {
+      _newColor.add(Get.put(ExpressionThemeController()).getPrimaryColor(i));
+      _newFont.add(Get.put(ExpressionThemeController()).getFontName(i));
+      _newEmoji.add(Get.put(ExpressionThemeController()).getEmoji(i));
+    }
+    testFont = _newFont;
+    testEmoji = _newEmoji;
+  }
 
   String getEmojis(int index) {
     return _data.allEmojis[index];
@@ -54,8 +64,20 @@ class ExpressionPageController {
     _newColor[emotion] = _data.allColors[colorIndex];
   }
 
-  void saveData(int emotion) {
+  void setNewFont(int emotion, int index) {
+    _newFont[emotion] = _data.allFonts[index];
+  }
+
+  void setNewEmoji(int emotion, int index) {
+    _newEmoji[emotion] = _data.allEmojis[index];
+  }
+
+  Future<void> saveData(int emotion) async {
     Get.put(ExpressionThemeController())
         .setPrimaryColor(_newColor[emotion], emotion);
+    Get.put(ExpressionThemeController()).setEmoji(_newEmoji[emotion], emotion);
+    Get.put(ExpressionThemeController()).setFont(_newFont[emotion], emotion);
+
+    await Get.put(UserController()).updateTheme(emotion);
   }
 }

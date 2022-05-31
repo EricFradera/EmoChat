@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/models/expression_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,11 +91,17 @@ class ExpressionThemeController extends GetxController {
             (_theme.isBold[emotion] ? FontWeight.bold : FontWeight.normal),
         fontStyle:
             (_theme.isItalic[emotion] ? FontStyle.italic : FontStyle.normal),
-        fontSize: 20);
+        fontSize: 18);
   }
 
   void setPrimaryColor(Color newColor, int emotion) {
     _theme.primary[emotion] = newColor;
+    update();
+    updateTheme(emotion);
+  }
+
+  void setFont(String newFont, int emotion) {
+    _theme.textFont[emotion] = newFont;
     update();
     updateTheme(emotion);
   }
@@ -111,8 +118,10 @@ class ExpressionThemeController extends GetxController {
     _theme.textColor[emotion] = newColor;
   }
 
-  void setEmoji(String emoji, int emotion) {
-    _theme.emojiExpression[emotion] = emoji;
+  void setEmoji(String newEmoji, int emotion) {
+    _theme.emojiExpression[emotion] = newEmoji;
+    update();
+    updateTheme(emotion);
   }
 
   void setBold(bool isBold, int emotion) {
@@ -121,6 +130,10 @@ class ExpressionThemeController extends GetxController {
 
   void setItalic(bool isItalic, int emotion) {
     _theme.isItalic[emotion] = isItalic;
+  }
+
+  String getFontName(int emotion) {
+    return _theme.textFont[emotion];
   }
 
   Map<String, dynamic> getJson(int emotion, String uid) {

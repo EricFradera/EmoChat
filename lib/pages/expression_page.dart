@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:chat_app/controllers/expression_page_controller.dart';
 import 'package:chat_app/controllers/expression_theme_controller.dart';
+import 'package:chat_app/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ExpressionPage extends StatelessWidget {
   const ExpressionPage({Key? key}) : super(key: key);
@@ -69,9 +73,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: Text(
-                item.headerName +
-                    " " +
-                    Get.put(ExpressionThemeController()).getEmoji(item.emotion),
+                item.headerName + " " + pageController.testEmoji[item.emotion],
                 style: const TextStyle(fontSize: 18),
               ), //Feeling name
             );
@@ -104,19 +106,6 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                         color: Get.put(ExpressionThemeController())
                             .getTextColor(emotion))))),
         const Text(
-          "Text Preview",
-          style: TextStyle(fontSize: 16),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12, top: 12),
-          child: Container(
-              alignment: Alignment.topLeft,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(177, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(12)),
-              child: textPreview()),
-        ),
-        const Text(
           "Color Selection",
           style: TextStyle(fontSize: 16),
         ),
@@ -128,6 +117,19 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
                   color: const Color.fromARGB(177, 255, 255, 255),
                   borderRadius: BorderRadius.circular(12)),
               child: colorSelection(emotion)),
+        ),
+        const Text(
+          "Text Preview",
+          style: TextStyle(fontSize: 16),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12, top: 12),
+          child: Container(
+              alignment: Alignment.topLeft,
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(177, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(12)),
+              child: textPreview(emotion)),
         ),
         const Text(
           "Font Selector",
@@ -161,9 +163,24 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
     );
   }
 
-  Widget textPreview() {
-    return const TextField(
-      decoration: InputDecoration(labelText: "This is the text Example"),
+  Widget textPreview(int emotion) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 300,
+          child: TextField(
+            decoration: const InputDecoration(labelText: "Type here"),
+            style: const TextStyle()
+                .merge(GoogleFonts.getFont(pageController.testFont[emotion])),
+          ),
+        ),
+        SizedBox(
+            width: 40,
+            child: Text(
+              pageController.testEmoji[emotion],
+              style: const TextStyle(fontSize: 25),
+            ))
+      ],
     );
   }
 
@@ -178,7 +195,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           itemBuilder: (BuildContext context, index) {
             return InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () {},
+                onTap: () => pageController.setNewColor(emotion, index),
                 child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Container(
@@ -197,7 +214,13 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
         itemCount: pageController.getLengthFonts(),
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (() {}),
+            onTap: () {
+              pageController.setNewFont(emotion, index);
+              setState(() {
+                pageController.testFont[emotion] =
+                    pageController.getFonts(index);
+              });
+            },
             child: Column(
               children: [
                 Padding(
@@ -222,7 +245,13 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
         itemCount: pageController.getLengthEmojis(),
         itemBuilder: (BuildContext context, index) {
           return InkWell(
-            onTap: (() => {}),
+            onTap: () {
+              pageController.setNewEmoji(emotion, index);
+              setState(() {
+                pageController.testEmoji[emotion] =
+                    pageController.getEmojis(index);
+              });
+            },
             child: Center(
               child: Text(
                 pageController.getEmojis(index),
