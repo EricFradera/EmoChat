@@ -12,16 +12,25 @@ class ExpressionPageController {
   final List<Color> _newColor = [];
   final List<String> _newFont = [];
   final List<String> _newEmoji = [];
+  final List<bool> _newBold = [];
+  final List<bool> _newItalic = [];
+
   List<String> testFont = [];
   List<String> testEmoji = [];
+  List<bool> testBold = [];
+  List<bool> testItalic = [];
   ExpressionPageController() {
     for (int i = 0; i < 7; i++) {
       _newColor.add(Get.put(ExpressionThemeController()).getPrimaryColor(i));
       _newFont.add(Get.put(ExpressionThemeController()).getFontName(i));
       _newEmoji.add(Get.put(ExpressionThemeController()).getEmoji(i));
+      _newBold.add(Get.put(ExpressionThemeController()).getBold(i));
+      _newItalic.add(Get.put(ExpressionThemeController()).getItalic(i));
     }
     testFont = _newFont;
     testEmoji = _newEmoji;
+    testBold = _newBold;
+    testItalic = _newItalic;
   }
 
   String getEmojis(int index) {
@@ -77,7 +86,25 @@ class ExpressionPageController {
         .setPrimaryColor(_newColor[emotion], emotion);
     Get.put(ExpressionThemeController()).setEmoji(_newEmoji[emotion], emotion);
     Get.put(ExpressionThemeController()).setFont(_newFont[emotion], emotion);
-
+    Get.put(ExpressionThemeController()).setBold(_newBold[emotion], emotion);
+    Get.put(ExpressionThemeController())
+        .setItalic(_newItalic[emotion], emotion);
     await Get.put(UserController()).updateTheme(emotion);
+  }
+
+  void setBold(int emotion) {
+    _newBold[emotion] = !_newBold[emotion];
+  }
+
+  bool getBold(int emotion) {
+    return _newBold[emotion];
+  }
+
+  bool getItalic(int emotion) {
+    return _newItalic[emotion];
+  }
+
+  void setItalic(int emotion) {
+    _newItalic[emotion] = !_newItalic[emotion];
   }
 }

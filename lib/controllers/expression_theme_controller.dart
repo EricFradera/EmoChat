@@ -82,6 +82,20 @@ class ExpressionThemeController extends GetxController {
     return _theme.emojiExpression[emotion];
   }
 
+  bool getBold([int? emotion]) {
+    if (emotion == null) {
+      return _theme.isBold[currentMood.index];
+    }
+    return _theme.isBold[emotion];
+  }
+
+  bool getItalic([int? emotion]) {
+    if (emotion == null) {
+      return _theme.isItalic[currentMood.index];
+    }
+    return _theme.isItalic[emotion];
+  }
+
   TextStyle getTextStyle([int? emotion]) {
     if (emotion == null) {
       return const TextStyle();
@@ -138,5 +152,9 @@ class ExpressionThemeController extends GetxController {
 
   Map<String, dynamic> getJson(int emotion, String uid) {
     return _theme.toJson(emotion, uid);
+  }
+
+  void setJson(int emotion, Map<String, dynamic> json) {
+    _theme.fromJson(json);
   }
 }

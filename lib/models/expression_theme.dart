@@ -82,7 +82,7 @@ class ExpressionTheme {
         'isBold': isBold[emotion]
       };
 
-  ExpressionTheme.fromJson(Map<String, dynamic> json) {
+  void fromJson(Map<String, dynamic> json) {
     final emotion = json['emotion'];
     primary[emotion] = Color(json['primary']);
     secondary[emotion] = Color(json['secondary']);

@@ -153,6 +153,7 @@ class UserController extends GetxController {
             .add(Get.put(ExpressionThemeController()).getJson(i, myUser.uid));
         query = await getTheme(i);
       }
+      Get.put(ExpressionThemeController()).setJson(i, query.docs[0].data());
     }
   }
 

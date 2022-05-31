@@ -135,6 +135,7 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           "Font Selector",
           style: TextStyle(fontSize: 16),
         ),
+        fontWeight(emotion),
         Padding(
           padding: const EdgeInsets.only(bottom: 12, top: 12),
           child: Container(
@@ -163,6 +164,48 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
     );
   }
 
+  Row fontWeight(int emotion) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+            alignment: Alignment.topRight,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Get.put(ExpressionThemeController())
+                        .getPrimaryColor(emotion)),
+                onPressed: () {
+                  pageController.setBold(emotion);
+                  setState(() {
+                    pageController.testBold[emotion] =
+                        pageController.getBold(emotion);
+                  });
+                },
+                child: Text("Bold",
+                    style: TextStyle(
+                        color: Get.put(ExpressionThemeController())
+                            .getTextColor(emotion))))),
+        Container(
+            alignment: Alignment.topRight,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Get.put(ExpressionThemeController())
+                        .getPrimaryColor(emotion)),
+                onPressed: () {
+                  pageController.setItalic(emotion);
+                  setState(() {
+                    pageController.testItalic[emotion] =
+                        pageController.getItalic(emotion);
+                  });
+                },
+                child: Text("Italic",
+                    style: TextStyle(
+                        color: Get.put(ExpressionThemeController())
+                            .getTextColor(emotion))))),
+      ],
+    );
+  }
+
   Widget textPreview(int emotion) {
     return Row(
       children: [
@@ -170,8 +213,14 @@ class _MyStatefulWidgetState extends State<ExpressiveSelector> {
           width: 300,
           child: TextField(
             decoration: const InputDecoration(labelText: "Type here"),
-            style: const TextStyle()
-                .merge(GoogleFonts.getFont(pageController.testFont[emotion])),
+            style: const TextStyle().merge(GoogleFonts.getFont(
+                pageController.testFont[emotion],
+                fontWeight: pageController.testBold[emotion]
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                fontStyle: pageController.testItalic[emotion]
+                    ? FontStyle.italic
+                    : FontStyle.normal)),
           ),
         ),
         SizedBox(
