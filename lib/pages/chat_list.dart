@@ -1,3 +1,4 @@
+import 'package:chat_app/controllers/expression_page_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/models/destination_user.dart';
 import 'package:chat_app/views/chat_screen.dart';
@@ -72,20 +73,26 @@ class _MessageCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    messageData.senderName,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      wordSpacing: 1.5,
-                    ),
+                    messageData.senderName +
+                        " " +
+                        Get.put(ExpressionPageController())
+                            .getEmojis(messageData.mood),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 1.5,
+                        color: Get.put(ExpressionPageController())
+                            .getColorT(messageData.mood)),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                   child: Text(
-                    messageData.message,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w100, color: Color(0xFF9899A5)),
+                    getEmotionName(messageData.mood),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w100,
+                        color: Get.put(ExpressionPageController())
+                            .getColorT(messageData.mood)),
                     overflow: TextOverflow.ellipsis,
                   ),
                 )
@@ -95,5 +102,24 @@ class _MessageCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getEmotionName(int index) {
+    switch (index) {
+      case 1:
+        return "Happy";
+      case 2:
+        return "Sad";
+      case 3:
+        return "Angry";
+      case 4:
+        return "Disgust";
+      case 5:
+        return "Surprise";
+      case 6:
+        return "Fear";
+      default:
+        return "neutral";
+    }
   }
 }

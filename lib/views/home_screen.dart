@@ -2,6 +2,7 @@ import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/how_it_works_page.dart';
+import 'package:chat_app/pages/user_statistics.dart';
 import 'package:chat_app/views/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +24,15 @@ class HomeScreen extends StatelessWidget {
     const ExpressionPage(),
     const ProfilePage(),
     const HowItWorksPage(),
+    const UserStatistics()
   ];
 
   final title = const [
     "Messages",
     "Emotive Selector",
     "Profile",
-    "How it works"
+    "How it works",
+    "User Statistics"
   ];
 
   @override
@@ -149,6 +152,13 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                   icon: CupertinoIcons.question_circle,
                   index: 3,
                   isSelected: (selectedIndex == 3),
+                  onTap: HandleItemSelected,
+                ),
+                _NavigationBarItem(
+                  label: "Statistics",
+                  icon: CupertinoIcons.graph_circle,
+                  index: 4,
+                  isSelected: (selectedIndex == 4),
                   onTap: HandleItemSelected,
                 ),
               ],

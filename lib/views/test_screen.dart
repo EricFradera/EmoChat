@@ -1,34 +1,54 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../font_and_emoji_data.dart';
 
 class TestScreen extends StatelessWidget {
-  TestScreen({Key? key}) : super(key: key);
+  TestScreen({
+    Key? key,
+  }) : super(key: key);
+  final List<PieChartSectionData> sectors = [
+    PieChartSectionData(
+        value: 5,
+        color: Colors.amber,
+        radius: 100,
+        showTitle: true,
+        title: "this is a test",
+        titleStyle: TextStyle(fontSize: 35, color: Colors.black),
+        titlePositionPercentageOffset: 20),
+    PieChartSectionData(value: 5, color: Colors.blue),
+    PieChartSectionData(value: 5, color: Colors.green),
+    PieChartSectionData(value: 5, color: Colors.red),
+  ];
 
   FontAndEmojiData data = FontAndEmojiData();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Test screen")), body: getEmoji());
+      body: AspectRatio(
+          aspectRatio: 1.0,
+          child: PieChart(PieChartData(
+            sectionsSpace: 2.0,
+            sections: _chartSections(sectors),
+            centerSpaceRadius: 48.0,
+          ))),
+    );
   }
 
-  Widget getEmoji() {
-    return GridView.builder(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 8),
-        itemCount: data.allEmojis.length,
-        itemBuilder: (BuildContext context, index) {
-          return InkWell(
-            onTap: (() => print(data.allEmojis[index])),
-            child: Center(
-              child: Text(
-                data.allEmojis[index],
-                style: const TextStyle(fontSize: 20),
-              ),
-            ),
-          );
-        });
+  List<PieChartSectionData> _chartSections(List<PieChartSectionData> sectors) {
+    final List<PieChartSectionData> list = [];
+    for (var sector in sectors) {
+      const double radius = 40.0;
+      final data = PieChartSectionData(
+        color: sector.color,
+        value: sector.value,
+        radius: radius,
+        title: '',
+      );
+      list.add(data);
+    }
+    return list;
   }
 /*
   Widget getFont() {
