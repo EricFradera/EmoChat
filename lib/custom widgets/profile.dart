@@ -14,7 +14,7 @@ class Profile extends StatelessWidget {
       {Key? key, this.radius = 22, required this.url, required this.mood})
       : super(key: key);
   const Profile.large(
-      {Key? key, this.radius = 44, required this.url, required this.mood})
+      {Key? key, this.radius = 60, required this.url, required this.mood})
       : super(key: key);
 
   final double radius;

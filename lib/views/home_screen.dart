@@ -1,7 +1,7 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/pages/chat_list.dart';
-import 'package:chat_app/pages/contact_page.dart';
+import 'package:chat_app/pages/how_it_works_page.dart';
 import 'package:chat_app/views/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,20 +16,20 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
 
   final ValueNotifier<int> pageIndex = ValueNotifier(0);
-  final ValueNotifier<String> pagetitle = ValueNotifier("Message");
+  final ValueNotifier<String> pagetitle = ValueNotifier("Messages");
 
   final pages = [
     const ContactsList(),
     const ExpressionPage(),
     const ProfilePage(),
-    const ContactPage(),
+    const HowItWorksPage(),
   ];
 
   final title = const [
     "Messages",
     "Emotive Selector",
-    "How it works",
-    "Contacts"
+    "Profile",
+    "How it works"
   ];
 
   @override
@@ -138,19 +138,19 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                       Action_Button(color: AppColors.accent, icon: Icons.add),
                 ),*/
                 _NavigationBarItem(
-                  label: "How it works",
-                  icon: CupertinoIcons.question,
+                  label: "Profile",
+                  icon: CupertinoIcons.profile_circled,
                   index: 2,
                   isSelected: (selectedIndex == 2),
                   onTap: HandleItemSelected,
                 ),
-                /*_NavigationBarItem(
-                  label: "Contacts",
-                  icon: CupertinoIcons.person_2_fill,
+                _NavigationBarItem(
+                  label: "How it works",
+                  icon: CupertinoIcons.question_circle,
                   index: 3,
                   isSelected: (selectedIndex == 3),
                   onTap: HandleItemSelected,
-                ),*/
+                ),
               ],
             ),
           ),

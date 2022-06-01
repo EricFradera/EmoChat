@@ -1,4 +1,5 @@
 import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/custom%20widgets/how_it_works_widget.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +14,26 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
+        padding: const EdgeInsets.all(10.0),
+        child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: _responsiveProfile(),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: _responsiveProfile(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 28, bottom: 28),
+                  child: Text(
+                    "Current emotion is " +
+                        Get.put(ExpressionThemeController()).getEmotion(),
+                    style: TextStyle(fontSize: 25),
+                  ),
+                ),
+                changeEmotionButtons(),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 12),
-              child: Text("Current emotion is " +
-                  Get.put(ExpressionThemeController()).getEmotion()),
-            ),
-            changeEmotionButtons()
           ],
         ),
       ),
