@@ -1,5 +1,4 @@
 import 'package:chat_app/controllers/user_controller.dart';
-import 'package:chat_app/custom%20widgets/how_it_works_widget.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
