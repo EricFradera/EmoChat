@@ -14,7 +14,7 @@ class TestScreen extends StatelessWidget {
         radius: 100,
         showTitle: true,
         title: "this is a test",
-        titleStyle: TextStyle(fontSize: 35, color: Colors.black),
+        titleStyle: const TextStyle(fontSize: 35, color: Colors.black),
         titlePositionPercentageOffset: 20),
     PieChartSectionData(value: 5, color: Colors.blue),
     PieChartSectionData(value: 5, color: Colors.green),

@@ -8,13 +8,6 @@ import 'package:get/get.dart';
 enum GraphType { own, other, overall }
 
 class StatatisticsController {
-  List<PieChartSectionData> moodData = [
-    PieChartSectionData(value: 5, color: Colors.amber),
-    PieChartSectionData(value: 5, color: Color.fromARGB(255, 76, 8, 204)),
-    PieChartSectionData(value: 5, color: Color.fromARGB(255, 255, 7, 19)),
-    PieChartSectionData(value: 5, color: Color.fromARGB(255, 7, 255, 40))
-  ].obs;
-
   List<PieChartSectionData> getMoodData(AsyncSnapshot<QuerySnapshot> moodData) {
     List<PieChartSectionData> section = [];
     List<double> values = [0, 0, 0, 0, 0, 0, 0];

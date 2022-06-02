@@ -51,7 +51,7 @@ class HotItWorks extends StatelessWidget {
 
   Widget bodyText(String text) {
     return Padding(
-      padding: EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10),
       child: Text(text),
     );
   }

@@ -63,8 +63,9 @@ class ExpressionPageController {
   TextStyle getStyleFonts(int index) {
     try {
       return GoogleFonts.getFont(_data.allFonts[index], fontSize: 20);
-    } catch (e) {}
-    return const TextStyle();
+    } catch (e) {
+      return const TextStyle();
+    }
   }
 
   int getLengthColors() {
