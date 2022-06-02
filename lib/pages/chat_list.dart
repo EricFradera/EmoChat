@@ -13,10 +13,7 @@ class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("users")
-            .where('uid', isNotEqualTo: Get.put(UserController()).myUser.uid)
-            .snapshots(),
+        stream: Get.put(UserController()).getUsers(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(

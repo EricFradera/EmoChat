@@ -40,7 +40,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor:
+              Get.put(ExpressionThemeController()).getPrimaryColor(),
           elevation: 0,
           title: ValueListenableBuilder(
             valueListenable: pagetitle,
@@ -114,8 +115,8 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
         top: false,
         bottom: true,
         child: Container(
-          decoration:
-              BoxDecoration(color: Theme.of(context).colorScheme.primary),
+          decoration: BoxDecoration(
+              color: Get.put(ExpressionThemeController()).getPrimaryColor()),
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
             child: Row(
@@ -148,17 +149,17 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                   onTap: HandleItemSelected,
                 ),
                 _NavigationBarItem(
-                  label: "How it works",
-                  icon: CupertinoIcons.question_circle,
-                  index: 3,
-                  isSelected: (selectedIndex == 3),
-                  onTap: HandleItemSelected,
-                ),
-                _NavigationBarItem(
                   label: "Statistics",
                   icon: CupertinoIcons.graph_circle,
                   index: 4,
                   isSelected: (selectedIndex == 4),
+                  onTap: HandleItemSelected,
+                ),
+                _NavigationBarItem(
+                  label: "How it works",
+                  icon: CupertinoIcons.question_circle,
+                  index: 3,
+                  isSelected: (selectedIndex == 3),
                   onTap: HandleItemSelected,
                 ),
               ],
@@ -202,7 +203,7 @@ class _NavigationBarItem extends StatelessWidget {
               icon,
               size: 20,
               color: isSelected
-                  ? Theme.of(context).colorScheme.tertiary
+                  ? Get.put(ExpressionThemeController()).getTertiaryColor()
                   : const Color.fromARGB(173, 255, 255, 255),
             ),
             const SizedBox(

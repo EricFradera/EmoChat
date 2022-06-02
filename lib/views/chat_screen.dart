@@ -67,9 +67,16 @@ class _AppBarTitle extends StatelessWidget {
           children: [
             //remove const when dynamically set profile name
             Text(
-              messageData.senderName,
+              messageData.senderName +
+                  " " +
+                  Get.put(ExpressionThemeController())
+                      .getEmoji(messageData.mood),
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Get.put(ExpressionThemeController())
+                      .getTextColor(messageData.mood)),
             ),
           ],
         ))

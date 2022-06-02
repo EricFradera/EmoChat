@@ -11,6 +11,7 @@ class ExpressionThemeController extends GetxController {
   var currentMood = ThemeType.neutral;
   final ExpressionTheme _theme = ExpressionTheme();
   late Rx<ThemeData> current = (ThemeData()).obs;
+
   ///////////////////////////////////////////////////////
 
   ExpressionThemeController() {

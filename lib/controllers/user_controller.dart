@@ -103,6 +103,13 @@ class UserController extends GetxController {
     return false;
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where('uid', isNotEqualTo: Get.put(UserController()).myUser.uid)
+        .snapshots();
+  }
+
   String getConversationID() {
     return myUser.uid.hashCode <= selectedUser.senderUid.hashCode
         ? myUser.uid + '' + selectedUser.senderUid
@@ -129,6 +136,14 @@ class UserController extends GetxController {
         .where("chatId", isEqualTo: getConversationID())
         .orderBy("timestamp", descending: false)
         .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMesAnalytics() {
+    return db.collection("messages").snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getThemesAnalytics() {
+    return db.collection("userThemes").snapshots();
   }
 
   changeMood(int i) async {
