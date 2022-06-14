@@ -27,6 +27,7 @@ class LoginScreen extends StatelessWidget {
                   "Inicia sessión en EmoChat",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
+                      color: Theme.of(context).colorScheme.tertiary,
                       letterSpacing: 0.5,
                       fontSize: 25,
                       fontWeight: FontWeight.bold),
@@ -39,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                     "Interactua, comunica en una experiencia Afectiva",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
+                        color: Theme.of(context).colorScheme.tertiary,
                         letterSpacing: 0.1,
                         fontSize: 18,
                         fontWeight: FontWeight.normal),

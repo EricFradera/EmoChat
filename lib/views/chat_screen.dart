@@ -1,13 +1,14 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
+import 'package:chat_app/custom%20widgets/messages_own_tile.dart';
+import 'package:chat_app/custom%20widgets/messages_tile.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/destination_user.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.destinationUser}) : super(key: key);
@@ -66,9 +67,16 @@ class _AppBarTitle extends StatelessWidget {
           children: [
             //remove const when dynamically set profile name
             Text(
-              messageData.senderName,
+              messageData.senderName +
+                  " " +
+                  Get.put(ExpressionThemeController())
+                      .getEmoji(messageData.mood),
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Get.put(ExpressionThemeController())
+                      .getTextColor(messageData.mood)),
             ),
           ],
         ))
@@ -108,140 +116,17 @@ class _MessageList extends StatelessWidget {
                     emotion: doc['emotion']);
 
                 if (Get.put(UserController()).isOwnMsg(msg)) {
-                  return _MessageOwnTile(
+                  return MessageOwnTile(
                     message: msg.message,
                     emotion: msg.emotion,
                   );
                 } else {
-                  return _MessageTile(
+                  return MessageTile(
                       message: msg.message, emotion: msg.emotion);
                 }
               },
             );
           }),
-    );
-  }
-}
-
-class _MessageOwnTile extends StatelessWidget {
-  const _MessageOwnTile(
-      {Key? key, required this.message, required this.emotion})
-      : super(key: key);
-
-  final String message;
-  final int emotion;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 50),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Get.put(ExpressionThemeController())
-                      .getPrimaryColor(emotion),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(5),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 3),
-                        blurRadius: 4,
-                        color: Colors.black.withOpacity(0.2))
-                  ]),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(
-                  message,
-                  style: TextStyle(
-                          color: Get.put(ExpressionThemeController())
-                              .getTextColor(emotion))
-                      .merge(Get.put(ExpressionThemeController())
-                          .getTextStyle(emotion)),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Center(
-                child: Text(
-                  Get.put(ExpressionThemeController()).getEmoji(emotion),
-                  style: const TextStyle(fontSize: 25),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _MessageTile extends StatelessWidget {
-  const _MessageTile({Key? key, required this.message, required this.emotion})
-      : super(key: key);
-
-  final String message;
-  final int emotion;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 50),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Get.put(ExpressionThemeController())
-                      .getPrimaryColor(emotion),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      topRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 3),
-                        blurRadius: 4,
-                        color: Colors.black.withOpacity(0.2))
-                  ]),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(message,
-                    style: TextStyle(
-                            color: Get.put(ExpressionThemeController())
-                                .getTextColor(emotion))
-                        .merge(Get.put(ExpressionThemeController())
-                            .getTextStyle(emotion))),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Center(
-                child: Text(
-                  Get.put(ExpressionThemeController()).getEmoji(emotion),
-                  style: const TextStyle(fontSize: 25),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

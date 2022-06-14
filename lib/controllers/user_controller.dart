@@ -1,3 +1,5 @@
+
+import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:chat_app/models/destination_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +16,7 @@ class UserController extends GetxController {
   DestinationUser selectedUser = DestinationUser.empty();
   FirebaseFirestore db = FirebaseFirestore.instance;
   String docRef = "";
+  List<String> themeDocRef = ["", "", "", "", "", "", ""];
 
   Future<void> signInUser() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -39,6 +42,7 @@ class UserController extends GetxController {
 
     //tryAddUser(tempUser);
     myUser = tempUser;
+    await createTheme();
 
     update();
   }
@@ -99,6 +103,13 @@ class UserController extends GetxController {
     return false;
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where('uid', isNotEqualTo: Get.put(UserController()).myUser.uid)
+        .snapshots();
+  }
+
   String getConversationID() {
     return myUser.uid.hashCode <= selectedUser.senderUid.hashCode
         ? myUser.uid + '' + selectedUser.senderUid
@@ -127,6 +138,14 @@ class UserController extends GetxController {
         .snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMesAnalytics() {
+    return db.collection("messages").snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getThemesAnalytics() {
+    return db.collection("userThemes").snapshots();
+  }
+
   changeMood(int i) async {
     if (docRef.isEmpty) {
       QuerySnapshot query = await db
@@ -138,5 +157,36 @@ class UserController extends GetxController {
     myUser.mood = i;
     await db.collection("users").doc(docRef).update(myUser.toJson());
     update();
+  }
+
+  Future<void> createTheme() async {
+    for (int i = 0; i < 7; i++) {
+      var query = await getTheme(i);
+      while (query.docs.isEmpty) {
+        db
+            .collection("userThemes")
+            .add(Get.put(ExpressionThemeController()).getJson(i, myUser.uid));
+        query = await getTheme(i);
+      }
+      Get.put(ExpressionThemeController()).setJson(i, query.docs[0].data());
+    }
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getTheme(int index) async {
+    final query = await db
+        .collection('userThemes')
+        .where('uid', isEqualTo: myUser.uid)
+        .where("emotion", isEqualTo: index)
+        .get();
+    if (query.docs.isNotEmpty) {
+      themeDocRef[index] = query.docs.single.reference.id;
+    }
+    update();
+    return query;
+  }
+
+  Future<void> updateTheme(int emotion) async {
+    await db.collection("userThemes").doc(themeDocRef[emotion]).update(
+        Get.put(ExpressionThemeController()).getJson(emotion, myUser.uid));
   }
 }

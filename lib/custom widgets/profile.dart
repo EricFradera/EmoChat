@@ -14,7 +14,7 @@ class Profile extends StatelessWidget {
       {Key? key, this.radius = 22, required this.url, required this.mood})
       : super(key: key);
   const Profile.large(
-      {Key? key, this.radius = 44, required this.url, required this.mood})
+      {Key? key, this.radius = 60, required this.url, required this.mood})
       : super(key: key);
 
   final double radius;
@@ -23,6 +23,23 @@ class Profile extends StatelessWidget {
   //final Color color;
   @override
   Widget build(BuildContext context) {
+    if (url.isEmpty) {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 0),
+                  blurRadius: 2,
+                  color:
+                      Get.put(ExpressionThemeController()).getTertiaryColor())
+            ]),
+        child: CircleAvatar(
+            radius: (radius + (radius * 0.25)),
+            backgroundColor: getCircleColor(),
+            child: Container()),
+      );
+    }
     return Container(
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(100)),

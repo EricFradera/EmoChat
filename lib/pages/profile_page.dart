@@ -13,124 +13,73 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
+        padding: const EdgeInsets.all(10.0),
+        child: ListView(
           children: [
-            _responsiveProfile(),
-            const Text("Current emotion is"),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(1);
-                          Get.put(UserController()).changeMood(1);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(1)),
-                        child: Text(
-                          "Happy",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(1)),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(2);
-                          Get.put(UserController()).changeMood(2);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(2)),
-                        child: Text(
-                          "Sad",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(2)),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(3);
-                          Get.put(UserController()).changeMood(3);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(3)),
-                        child: Text(
-                          "Scared",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(3)),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(4);
-                          Get.put(UserController()).changeMood(4);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(4)),
-                        child: Text(
-                          "Disgust",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(4)),
-                        )),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: _responsiveProfile(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(5);
-                          Get.put(UserController()).changeMood(5);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(5)),
-                        child: Text(
-                          "Rage",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(5)),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(6);
-                          Get.put(UserController()).changeMood(6);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(6)),
-                        child: Text("Surprise",
-                            style: TextStyle(
-                                color: Get.put(ExpressionThemeController())
-                                    .getTertiaryColor(6)))),
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.put(ExpressionThemeController()).changeTheme(0);
-                          Get.put(UserController()).changeMood(0);
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: Get.put(ExpressionThemeController())
-                                .getPrimaryColor(0)),
-                        child: Text(
-                          "Neutral",
-                          style: TextStyle(
-                              color: Get.put(ExpressionThemeController())
-                                  .getTertiaryColor(6)),
-                        )),
-                  ],
-                )
+                Padding(
+                  padding: const EdgeInsets.only(top: 28, bottom: 28),
+                  child: Text(
+                    "Current emotion is " +
+                        Get.put(ExpressionThemeController()).getEmotion(),
+                    style: const TextStyle(fontSize: 25),
+                  ),
+                ),
+                changeEmotionButtons(),
               ],
-            )
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget changeEmotionButtons() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            getButton("Neutral", 0),
+            getButton("Happy", 1),
+            getButton("Sad", 2)
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            getButton("Angry", 3),
+            getButton("Disgust", 4),
+            getButton("Surprise", 5)
+          ],
+        ),
+        getButton("Fear", 6)
+      ],
+    );
+  }
+
+  Widget getButton(String emotion, int indexEmotion) {
+    return SizedBox(
+      width: 100,
+      child: ElevatedButton(
+          onPressed: () {
+            Get.put(ExpressionThemeController()).changeTheme(indexEmotion);
+            Get.put(UserController()).changeMood(indexEmotion);
+          },
+          style: ElevatedButton.styleFrom(
+              primary: Get.put(ExpressionThemeController())
+                  .getPrimaryColor(indexEmotion)),
+          child: Text(
+            emotion,
+            style: TextStyle(
+                color: Get.put(ExpressionThemeController())
+                    .getTertiaryColor(indexEmotion)),
+          )),
     );
   }
 

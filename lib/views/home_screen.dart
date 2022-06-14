@@ -1,7 +1,8 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/controllers/user_controller.dart';
 import 'package:chat_app/pages/chat_list.dart';
-import 'package:chat_app/pages/contact_page.dart';
+import 'package:chat_app/pages/how_it_works_page.dart';
+import 'package:chat_app/pages/user_statistics.dart';
 import 'package:chat_app/views/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,20 +17,22 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
 
   final ValueNotifier<int> pageIndex = ValueNotifier(0);
-  final ValueNotifier<String> pagetitle = ValueNotifier("Message");
+  final ValueNotifier<String> pagetitle = ValueNotifier("Messages");
 
   final pages = [
     const ContactsList(),
     const ExpressionPage(),
     const ProfilePage(),
-    const ContactPage(),
+    const HowItWorksPage(),
+    const UserStatistics()
   ];
 
   final title = const [
     "Messages",
     "Emotive Selector",
+    "Profile",
     "How it works",
-    "Contacts"
+    "User Statistics"
   ];
 
   @override
@@ -37,7 +40,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor:
+              Get.put(ExpressionThemeController()).getPrimaryColor(),
           elevation: 0,
           title: ValueListenableBuilder(
             valueListenable: pagetitle,
@@ -64,9 +68,6 @@ class HomeScreen extends StatelessWidget {
                   }),
                   icon: const Icon(Icons.exit_to_app)),
             ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.switch_access_shortcut))
           ]),
       body: ValueListenableBuilder(
         valueListenable: pageIndex,
@@ -114,8 +115,8 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
         top: false,
         bottom: true,
         child: Container(
-          decoration:
-              BoxDecoration(color: Theme.of(context).colorScheme.primary),
+          decoration: BoxDecoration(
+              color: Get.put(ExpressionThemeController()).getPrimaryColor()),
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
             child: Row(
@@ -141,19 +142,26 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                       Action_Button(color: AppColors.accent, icon: Icons.add),
                 ),*/
                 _NavigationBarItem(
-                  label: "How it works",
-                  icon: CupertinoIcons.question,
+                  label: "Profile",
+                  icon: CupertinoIcons.profile_circled,
                   index: 2,
                   isSelected: (selectedIndex == 2),
                   onTap: HandleItemSelected,
                 ),
-                /*_NavigationBarItem(
-                  label: "Contacts",
-                  icon: CupertinoIcons.person_2_fill,
+                _NavigationBarItem(
+                  label: "Statistics",
+                  icon: CupertinoIcons.graph_circle,
+                  index: 4,
+                  isSelected: (selectedIndex == 4),
+                  onTap: HandleItemSelected,
+                ),
+                _NavigationBarItem(
+                  label: "How it works",
+                  icon: CupertinoIcons.question_circle,
                   index: 3,
                   isSelected: (selectedIndex == 3),
                   onTap: HandleItemSelected,
-                ),*/
+                ),
               ],
             ),
           ),
@@ -195,8 +203,8 @@ class _NavigationBarItem extends StatelessWidget {
               icon,
               size: 20,
               color: isSelected
-                  ? Theme.of(context).colorScheme.tertiary
-                  : Theme.of(context).colorScheme.secondary,
+                  ? Get.put(ExpressionThemeController()).getTertiaryColor()
+                  : const Color.fromARGB(173, 255, 255, 255),
             ),
             const SizedBox(
               height: 8,

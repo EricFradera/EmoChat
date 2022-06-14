@@ -1,3 +1,4 @@
+
 import 'package:chat_app/models/expression_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class ExpressionThemeController extends GetxController {
   var currentMood = ThemeType.neutral;
   final ExpressionTheme _theme = ExpressionTheme();
   late Rx<ThemeData> current = (ThemeData()).obs;
+
   ///////////////////////////////////////////////////////
 
   ExpressionThemeController() {
@@ -18,7 +20,13 @@ class ExpressionThemeController extends GetxController {
 
   void changeTheme(int emotion) {
     currentMood = ThemeType.values[emotion];
-    current.value = buildTheme(emotion);
+    updateTheme(emotion);
+  }
+
+  void updateTheme(int emotion) {
+    if (currentMood.index == emotion) {
+      current.value = buildTheme(emotion);
+    }
     update();
   }
 
@@ -30,7 +38,8 @@ class ExpressionThemeController extends GetxController {
           secondary: _theme.secondary[emotion],
           tertiary: _theme.tertiaryColor[emotion]),
       appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: _theme.secondary[emotion]),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(173, 255, 255, 255)),
           titleTextStyle: TextStyle(color: _theme.tertiaryColor[emotion])),
       textTheme: GoogleFonts.mulishTextTheme()
           .apply(bodyColor: _theme.textColor[emotion]),
@@ -77,6 +86,20 @@ class ExpressionThemeController extends GetxController {
     return _theme.emojiExpression[emotion];
   }
 
+  bool getBold([int? emotion]) {
+    if (emotion == null) {
+      return _theme.isBold[currentMood.index];
+    }
+    return _theme.isBold[emotion];
+  }
+
+  bool getItalic([int? emotion]) {
+    if (emotion == null) {
+      return _theme.isItalic[currentMood.index];
+    }
+    return _theme.isItalic[emotion];
+  }
+
   TextStyle getTextStyle([int? emotion]) {
     if (emotion == null) {
       return const TextStyle();
@@ -86,11 +109,19 @@ class ExpressionThemeController extends GetxController {
             (_theme.isBold[emotion] ? FontWeight.bold : FontWeight.normal),
         fontStyle:
             (_theme.isItalic[emotion] ? FontStyle.italic : FontStyle.normal),
-        fontSize: 20);
+        fontSize: 18);
   }
 
   void setPrimaryColor(Color newColor, int emotion) {
     _theme.primary[emotion] = newColor;
+    update();
+    updateTheme(emotion);
+  }
+
+  void setFont(String newFont, int emotion) {
+    _theme.textFont[emotion] = newFont;
+    update();
+    updateTheme(emotion);
   }
 
   void setSecondaryColor(Color newColor, int emotion) {
@@ -105,8 +136,10 @@ class ExpressionThemeController extends GetxController {
     _theme.textColor[emotion] = newColor;
   }
 
-  void setEmoji(String emoji, int emotion) {
-    _theme.emojiExpression[emotion] = emoji;
+  void setEmoji(String newEmoji, int emotion) {
+    _theme.emojiExpression[emotion] = newEmoji;
+    update();
+    updateTheme(emotion);
   }
 
   void setBold(bool isBold, int emotion) {
@@ -115,5 +148,38 @@ class ExpressionThemeController extends GetxController {
 
   void setItalic(bool isItalic, int emotion) {
     _theme.isItalic[emotion] = isItalic;
+  }
+
+  String getFontName(int emotion) {
+    return _theme.textFont[emotion];
+  }
+
+  Map<String, dynamic> getJson(int emotion, String uid) {
+    return _theme.toJson(emotion, uid);
+  }
+
+  void setJson(int emotion, Map<String, dynamic> json) {
+    _theme.fromJson(json);
+  }
+
+  String getEmotion() {
+    switch (currentMood.index) {
+      case 0:
+        return "Neutral";
+      case 1:
+        return "happy";
+      case 2:
+        return "sad";
+      case 3:
+        return "angry";
+      case 4:
+        return "disgust";
+      case 5:
+        return "surprise";
+      case 6:
+        return "fear";
+      default:
+        return "not defined";
+    }
   }
 }
