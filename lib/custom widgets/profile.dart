@@ -23,6 +23,23 @@ class Profile extends StatelessWidget {
   //final Color color;
   @override
   Widget build(BuildContext context) {
+    if (url.isEmpty) {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 0),
+                  blurRadius: 2,
+                  color:
+                      Get.put(ExpressionThemeController()).getTertiaryColor())
+            ]),
+        child: CircleAvatar(
+            radius: (radius + (radius * 0.25)),
+            backgroundColor: getCircleColor(),
+            child: Container()),
+      );
+    }
     return Container(
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(100)),
