@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/font_and_emoji_data.dart';
 import 'package:flutter/src/painting/text_style.dart';
 import 'package:get/get.dart';
@@ -104,7 +104,7 @@ class ExpressionPageController {
     Get.put(ExpressionThemeController()).setFont(newFont[emotion], emotion);
     Get.put(ExpressionThemeController()).setBold(newBold[emotion], emotion);
     Get.put(ExpressionThemeController()).setItalic(newItalic[emotion], emotion);
-    await Get.put(UserController()).updateTheme(emotion);
+    await Get.put(FireBaseController()).updateTheme(emotion);
   }
 
   void setBold(int emotion) {

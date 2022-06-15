@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/pages/chat_list.dart';
 import 'package:chat_app/pages/how_it_works_page.dart';
 import 'package:chat_app/pages/user_statistics.dart';
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                   onPressed: (() {
-                    Get.put(UserController()).trySingOut();
+                    Get.put(FireBaseController()).trySingOut();
                     Navigator.push(
                         context,
                         MaterialPageRoute(

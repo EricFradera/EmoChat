@@ -1,4 +1,4 @@
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/custom%20widgets/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +69,7 @@ class ProfilePage extends StatelessWidget {
       child: ElevatedButton(
           onPressed: () {
             Get.put(ExpressionThemeController()).changeTheme(indexEmotion);
-            Get.put(UserController()).changeMood(indexEmotion);
+            Get.put(FireBaseController()).changeMood(indexEmotion);
           },
           style: ElevatedButton.styleFrom(
               primary: Get.put(ExpressionThemeController())
@@ -87,7 +87,7 @@ class ProfilePage extends StatelessWidget {
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("users")
-            .where('uid', isEqualTo: Get.put(UserController()).myUser.uid)
+            .where('uid', isEqualTo: Get.put(FireBaseController()).myUser.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {

@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/custom%20widgets/log_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,9 +56,9 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> _handleSignIn(context) async {
-    await Get.put(UserController()).signInUser();
+    await Get.put(FireBaseController()).signInUser();
     Get.put(ExpressionThemeController())
-        .changeTheme(Get.put(UserController()).myUser.mood);
+        .changeTheme(Get.put(FireBaseController()).myUser.mood);
     Route route = MaterialPageRoute(builder: (context) => HomeScreen());
     Navigator.pushReplacement(context, route);
   }

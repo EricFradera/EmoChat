@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/expression_page_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/models/destination_user.dart';
 import 'package:chat_app/views/chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +13,7 @@ class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Get.put(UserController()).getUsers(),
+        stream: Get.put(FireBaseController()).getUsers(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(

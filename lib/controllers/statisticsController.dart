@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class StatatisticsController {
     List<double> valuesOwn = [0, 0, 0, 0, 0, 0, 0];
     List<double> valuesOther = [0, 0, 0, 0, 0, 0, 0];
     List<double> valuesOverall = [0, 0, 0, 0, 0, 0, 0];
-    String uid = Get.put(UserController()).myUser.uid;
+    String uid = Get.put(FireBaseController()).myUser.uid;
 
     for (var element in moodData.data!.docs) {
       if (element["sender"] == uid) {

@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/expression_theme_controller.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:chat_app/custom%20widgets/action_button.dart';
 import 'package:chat_app/custom%20widgets/messages_own_tile.dart';
 import 'package:chat_app/custom%20widgets/messages_tile.dart';
@@ -28,7 +28,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
-    Get.put(UserController()).selectUser(widget.destinationUser);
+    Get.put(FireBaseController()).selectUser(widget.destinationUser);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -93,7 +93,7 @@ class _MessageList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: StreamBuilder(
-          stream: Get.put(UserController()).getChatMessages(),
+          stream: Get.put(FireBaseController()).getChatMessages(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -115,7 +115,7 @@ class _MessageList extends StatelessWidget {
                     timestamp: doc['timestamp'],
                     emotion: doc['emotion']);
 
-                if (Get.put(UserController()).isOwnMsg(msg)) {
+                if (Get.put(FireBaseController()).isOwnMsg(msg)) {
                   return MessageOwnTile(
                     message: msg.message,
                     emotion: msg.emotion,
@@ -241,7 +241,7 @@ class _TextBarState extends State<_TextBar> {
                           .getPrimaryColor(emotionMode),
                       icon: Icons.send,
                       onPressed: () {
-                        Get.put(UserController()).sendMessage(
+                        Get.put(FireBaseController()).sendMessage(
                             messageTextController.text, emotionMode);
                         messageTextController.clear();
                         setState(() => emotionMode = 0);

@@ -1,4 +1,3 @@
-
 import 'package:chat_app/controllers/expression_theme_controller.dart';
 import 'package:chat_app/models/chat_message.dart';
 import 'package:chat_app/models/destination_user.dart';
@@ -9,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:chat_app/models/user.dart';
 import '../models/user.dart';
 
-class UserController extends GetxController {
+class FireBaseController extends GetxController {
   //if user is not in database adds, else do nothing
 
   EmoUser myUser = EmoUser.empty();
@@ -106,7 +105,7 @@ class UserController extends GetxController {
   Stream<QuerySnapshot<Map<String, dynamic>>> getUsers() {
     return FirebaseFirestore.instance
         .collection("users")
-        .where('uid', isNotEqualTo: Get.put(UserController()).myUser.uid)
+        .where('uid', isNotEqualTo: Get.put(FireBaseController()).myUser.uid)
         .snapshots();
   }
 

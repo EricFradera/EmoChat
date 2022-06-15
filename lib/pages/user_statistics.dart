@@ -1,5 +1,5 @@
 import 'package:chat_app/controllers/statisticsController.dart';
-import 'package:chat_app/controllers/user_controller.dart';
+import 'package:chat_app/controllers/firebase_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _UserStatisticsState extends State<UserStatistics> {
 
   Widget _moodStatitistics() {
     return StreamBuilder(
-        stream: Get.put(UserController()).getUsers(),
+        stream: Get.put(FireBaseController()).getUsers(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -68,7 +68,7 @@ class _UserStatisticsState extends State<UserStatistics> {
 
   Widget _messageStatistics() {
     return StreamBuilder(
-        stream: Get.put(UserController()).getMesAnalytics(),
+        stream: Get.put(FireBaseController()).getMesAnalytics(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -89,7 +89,7 @@ class _UserStatisticsState extends State<UserStatistics> {
   Widget _themesAnalytics() {
     final allEmotions = <Widget>[];
     return StreamBuilder(
-        stream: Get.put(UserController()).getThemesAnalytics(),
+        stream: Get.put(FireBaseController()).getThemesAnalytics(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
