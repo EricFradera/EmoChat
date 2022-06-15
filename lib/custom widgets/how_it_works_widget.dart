@@ -16,11 +16,11 @@ class HotItWorks extends StatelessWidget {
             "Emo chat is a showcase of some Afective computing features that can be implemented in several projects. The main objective of the app is to showcase how apps can be personalized based on the personality of the user but also on how they are feeling. While better representing the user feelings through the UI it also provides tools to improve empathy and user comunication.\n This page will show the patters as well as showing your current settings"),
         title("UI mood representation"),
         bodyText(
-            'The app provides different themes based on how you are feeling, and will change all the colors in app when changing your mood. The customization allows to better fit your idea of the color of emotion. Cutural changes as well as age, race etc might change the relations between emotion and colors so a flexible system allows to customomized base on your ideas as well as ensuring content visibility '),
+            'The app provides different themes based on how you are feeling and will change all the colors in an app when changing your mood. The customization allows to better fit your idea of the color of emotion. Cultural changes as well as age, race, etc. might change the relations between emotion and colors so a flexible system allows to customize based on your ideas as well as ensuring content visibility '),
         emotionColorRep(),
         title("Better empathy"),
         bodyText(
-            "In the same way that colors did emojis and Fonts are used to imporve the feels of the sender to better understand how the other user feels. Ins the same page wher colors are chosen a wide variety of emojis and Fonts are provided to improve user emotion perception "),
+            "In the same way that colors did emojis and Fonts are used to improve the feels of the sender to better understand how the other user fees. Ins the same page where colors are chosen a wide variety of emojis and Fonts are provided to improve user emotion perception "),
         const Padding(
           padding: EdgeInsets.only(top: 10, bottom: 10),
           child:
